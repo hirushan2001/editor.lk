@@ -1,0 +1,56 @@
+import React from 'react';
+import Header from './components/Header';
+import HeroSection from './components/HeroSection';
+import WhatYouLearn from './components/WhatYouLearn';
+import RealProjectsSection from './components/RealProjectsSection';
+import PricingSection from './components/PricingSection';
+import ComparisonSection from './components/ComparisonSection';
+import TestimonialsSection from './components/TestimonialsSection';
+import FaqSection from './components/FaqSection';
+import CurriculumMontage from './components/CurriculumMontage';
+import FooterSection from './components/FooterSection';
+
+export default function App() {
+  return (
+    <div className="min-h-full flex flex-col bg-neutral-950 text-white font-sans antialiased">
+      
+      {/* Header */}
+      <Header />
+
+      {/* Main Layout Container */}
+      <div className="relative min-h-screen bg-neutral-950 font-sans text-white">
+        
+        {/* Child 1: Sticky Hero Section */}
+        <HeroSection />
+
+        {/* Child 2: What You'll Learn & Real Projects (White rounded card container) */}
+        <div className="relative z-20 w-full bg-white text-neutral-900 rounded-t-4xl rounded-b-4xl shadow-[0_-10px_25px_rgba(0,0,0,0.5)] sm:shadow-[0_-25px_60px_rgba(0,0,0,0.8),0_25px_60px_rgba(0,0,0,0.4)] overflow-hidden">
+          <WhatYouLearn />
+          <RealProjectsSection />
+        </div>
+
+        {/* Child 3: Pricing & Offer Section */}
+        <div id="pricing" className="relative z-10 w-full bg-neutral-950 -mt-10 pt-10">
+          <PricingSection />
+        </div>
+
+        {/* Child 4: Comparison, Testimonials & FAQ (White rounded card container) */}
+        <div className="relative z-20 w-full bg-white text-neutral-900 rounded-t-4xl rounded-b-4xl shadow-[0_-10px_25px_rgba(0,0,0,0.5)] sm:shadow-[0_-25px_60px_rgba(0,0,0,0.8),0_25px_60px_rgba(0,0,0,0.4)] overflow-hidden">
+          <ComparisonSection />
+          <TestimonialsSection />
+          <FaqSection />
+        </div>
+
+        {/* Child 5: All You'll Learn Montage Grid */}
+        <div className="relative z-20 w-full bg-[#08080A]">
+          <CurriculumMontage />
+        </div>
+
+        {/* Child 6: Footer & Signature Curtain */}
+        <FooterSection />
+
+      </div>
+
+    </div>
+  );
+}
