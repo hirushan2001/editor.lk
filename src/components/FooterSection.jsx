@@ -163,9 +163,8 @@ export default function FooterSection() {
         </div>
       </div>
 
-      {/* Giant Signature Text Footer Background */}
-      <div className="footer-curtain-spacer relative z-0 h-[28vh] sm:h-[42vh] lg:h-[48vh] w-full pointer-events-none"></div>
-      <div className="footer-fixed-layer fixed bottom-0 left-0 w-full h-[28vh] sm:h-[42vh] lg:h-[48vh] z-0 flex items-center justify-center overflow-hidden pointer-events-none border-t border-white/10 bg-black">
+      {/* Giant Signature Text Footer */}
+      <div className="relative z-10 w-full bg-black py-10 sm:py-16 overflow-hidden flex items-center justify-center border-t border-white/10 select-none">
         <h1 className="footer-signature-text text-[25.8vw] sm:text-[25vw] lg:text-[25.2vw] font-black tracking-tighter select-none leading-none text-center whitespace-nowrap w-screen text-white drop-shadow-2xl flex items-center justify-center px-0 -ml-[0.03em]">
           Editor.lk
         </h1>
