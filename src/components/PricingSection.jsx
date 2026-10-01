@@ -22,7 +22,7 @@ export default function PricingSection() {
           <div className="pricing-parallax-container max-w-340 2xl:max-w-408 mx-auto px-0 sm:px-6 lg:px-8 space-y-6 sm:space-y-8 will-change-transform transform-gpu">
             
             {/* Top Banner Card */}
-            <div className="relative rounded-none sm:rounded-4xl p-5 sm:p-8 lg:px-10 h-auto border-y sm:border border-white/5 flex flex-col lg:flex-row items-center justify-between gap-6 overflow-hidden shadow-xl" style={{backgroundRepeat: "repeat, no-repeat", boxShadow: "inset 0 1px 20px rgba(255, 255, 255, 0.05), 0 25px 50px -12px rgba(0, 0, 0, 0.7)"}}>
+            <div className="relative rounded-none sm:rounded-4xl p-5 sm:p-8 lg:px-10 h-auto border-y sm:border border-white/5 flex flex-col lg:flex-row items-center justify-between gap-6 overflow-hidden shadow-xl reveal-on-scroll" style={{backgroundRepeat: "repeat, no-repeat", boxShadow: "inset 0 1px 20px rgba(255, 255, 255, 0.05), 0 25px 50px -12px rgba(0, 0, 0, 0.7)"}}>
               <div className="absolute -right-20 -top-20 w-80 h-80 pointer-events-none rounded-full" style={{background: "radial-gradient(circle, rgba(234, 88, 12, 0.12) 0%, transparent 70%)"}}></div>
               
               <div className="space-y-3.5 max-w-2xl relative z-10 text-left w-full">
@@ -89,7 +89,7 @@ export default function PricingSection() {
             </div>
 
             {/* Grid for Bonus Card & Main Pricing Card */}
-            <div className="flex flex-col lg:grid lg:grid-cols-3 gap-6">
+            <div className="flex flex-col lg:grid lg:grid-cols-3 gap-6 reveal-on-scroll">
               
               {/* Bonus Card */}
               <div className="order-2 lg:order-1 lg:col-span-3 px-4 sm:px-0 grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -148,7 +148,7 @@ export default function PricingSection() {
               </div>
 
               {/* Main Masterclass Pricing Box */}
-              <div className="order-1 lg:order-2 lg:col-span-3 mx-4 sm:mx-0 relative rounded-[28.26px] p-5 sm:p-8 lg:p-10 h-auto overflow-hidden shadow-2xl flex flex-col justify-between" style={{background: "linear-gradient(225deg, rgba(255, 107, 56, 0.45) 0%, rgba(255, 107, 56, 0.12) 50%, #050505 85%)"}}>
+              <div className="order-1 lg:order-2 lg:col-span-3 mx-4 sm:mx-0 relative rounded-[28.26px] p-5 sm:p-8 lg:p-10 h-auto overflow-hidden shadow-2xl flex flex-col justify-between reveal-on-scroll" style={{background: "linear-gradient(225deg, rgba(255, 107, 56, 0.45) 0%, rgba(255, 107, 56, 0.12) 50%, #050505 85%)"}}>
                 <div className="absolute -left-32 -bottom-32 w-96 h-96 pointer-events-none rounded-full" style={{background: "radial-gradient(circle, rgba(255, 92, 53, 0.12) 0%, transparent 70%)"}}></div>
 
                 {/* Badges */}

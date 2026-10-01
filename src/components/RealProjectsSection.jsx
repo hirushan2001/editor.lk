@@ -6,7 +6,7 @@ export default function RealProjectsSection() {
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
+        <div className="text-center max-w-3xl mx-auto space-y-4 reveal-on-scroll">
           <span className="text-xs font-semibold tracking-wider uppercase text-neutral-500 bg-neutral-100 px-4 py-1.5 rounded-full border border-neutral-200">
             The Ultimate Space to Perfect Your Editing Skills.
           </span>
@@ -22,7 +22,7 @@ export default function RealProjectsSection() {
         </div>
 
         {/* Main Mockup Image */}
-        <div className="max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-neutral-200">
+        <div className="max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-neutral-200 reveal-on-scroll">
           <img
             src="/main/1/real-projects/main.png"
             alt="Learn by building real projects - CapCut Masterclass"
@@ -31,7 +31,7 @@ export default function RealProjectsSection() {
         </div>
 
         {/* 3 Feature Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto pt-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto pt-6 reveal-on-scroll">
           
           {/* Card 1 */}
           <div className="rounded-3xl bg-neutral-950 text-white p-6 space-y-4 border border-neutral-800 flex flex-col justify-between shadow-xl">

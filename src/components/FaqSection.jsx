@@ -32,7 +32,7 @@ export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <div id="faq" className="w-full py-16 sm:py-20 bg-white text-neutral-900 border-t border-neutral-200 select-none">
+    <div id="faq" className="w-full py-16 sm:py-20 bg-white text-neutral-900 border-t border-neutral-200 select-none reveal-on-scroll">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
         {/* Header */}

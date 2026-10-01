@@ -49,7 +49,7 @@ export default function WhatYouLearn() {
           <div className="max-w-[1440px] mx-auto flex flex-col items-center">
             
             {/* Header */}
-            <div className="text-center mt-2 md:mt-0 max-w-xl lg:max-w-4xl mx-auto mb-4 sm:mb-14">
+            <div className="text-center mt-2 md:mt-0 max-w-xl lg:max-w-4xl mx-auto mb-4 sm:mb-14 reveal-on-scroll">
               <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-neutral-900 leading-[1.08]">
                 What You'll Learn
               </h2>
@@ -59,7 +59,7 @@ export default function WhatYouLearn() {
             </div>
 
             {/* Desktop Card Stack / Accordion */}
-            <div className="hidden lg:flex w-full flex-col lg:flex-row gap-4 sm:gap-5 h-auto lg:h-[530px]">
+            <div className="hidden lg:flex w-full flex-col lg:flex-row gap-4 sm:gap-5 h-auto lg:h-[530px] reveal-on-scroll">
               {CARDS.map((card, index) => {
                 const isActive = activeCard === index;
                 return (

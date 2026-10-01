@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function CurriculumMontage() {
   return (
-    <div className="relative w-full py-16 bg-[#08080A]">
+    <div className="relative w-full py-16 bg-[#08080A] reveal-on-scroll">
       <div className="relative w-full overflow-hidden bg-neutral-950 flex flex-col items-center justify-center border-b border-white/5 min-h-[360px] sm:min-h-[440px]">
         
         {/* Background Montage banner */}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import WhatYouLearn from './components/WhatYouLearn';
@@ -11,6 +11,26 @@ import CurriculumMontage from './components/CurriculumMontage';
 import FooterSection from './components/FooterSection';
 
 export default function App() {
+  useEffect(() => {
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    };
+
+    const observerOptions = {
+      threshold: 0.05,
+      rootMargin: '0px 0px -40px 0px'
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const elements = document.querySelectorAll('.reveal-on-scroll');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
   return (
     <div className="min-h-full flex flex-col bg-neutral-950 text-white font-sans antialiased">
       
