@@ -200,7 +200,7 @@ export default function HeroSection() {
                     >
                       <span className="relative z-10">{item.name}</span>
                       {isActive && (
-                        <span className="absolute bottom-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-[#F93B4E] to-[#FF6B35] rounded-b-2xl animate-[fillProgress_5s_linear_infinite]"></span>
+                        <span key={`progress-${item.id}`} className="absolute bottom-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-[#F93B4E] to-[#FF6B35] rounded-b-2xl animate-[fillProgress_5s_linear_infinite]"></span>
                       )}
                     </button>
                   );

@@ -35,6 +35,16 @@ body {
   100% { width: 100%; }
 }
 
+@keyframes marqueeLeft {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marqueeRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
 .font-poppins {
   font-family: 'Poppins', sans-serif;
 }

@@ -39,6 +39,8 @@ const CARDS = [
   }
 ];
 
+
+
 export default function WhatYouLearn() {
   const [activeCard, setActiveCard] = useState(0);
 
@@ -58,7 +60,7 @@ export default function WhatYouLearn() {
               </p>
             </div>
 
-            {/* Desktop Card Stack / Accordion */}
+            {/* Desktop Card Accordion Stack */}
             <div className="hidden lg:flex w-full flex-col lg:flex-row gap-4 sm:gap-5 h-auto lg:h-[530px] reveal-on-scroll">
               {CARDS.map((card, index) => {
                 const isActive = activeCard === index;
@@ -66,17 +68,21 @@ export default function WhatYouLearn() {
                   <div
                     key={card.id}
                     onClick={() => setActiveCard(index)}
-                    className={`accordion-card relative rounded-3xl overflow-hidden cursor-pointer flex flex-col justify-between transition-all duration-500 bg-black text-white shadow-2xl border border-neutral-800 ${
-                      isActive ? 'flex-[3.5] bg-black' : 'flex-1 hover:bg-neutral-900 opacity-90'
+                    className={`accordion-card flex-1 min-w-0 relative rounded-3xl overflow-hidden cursor-pointer flex flex-col justify-between transition-all duration-500 ease-in-out ${
+                      isActive
+                        ? 'flex-[3.5] bg-black text-white shadow-2xl shadow-black/50 border border-neutral-800'
+                        : 'flex-1 bg-[#F3F3F5] hover:bg-[#E8E8EC] text-neutral-900 border border-neutral-200/80'
                     }`}
                   >
-                    {/* Header title */}
+                    {/* Header category title */}
                     <div className="z-10 px-6 pt-6 pb-4 flex items-center justify-between">
-                      <h3 className="font-bold text-base sm:text-lg transition-colors duration-300 text-white">
+                      <h3 className={`font-bold text-base sm:text-lg transition-colors duration-300 ${
+                        isActive ? 'text-white' : 'text-neutral-900'
+                      }`}>
                         {card.category}
                       </h3>
                       {!isActive && (
-                        <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white">
+                        <div className="w-8 h-8 rounded-full bg-neutral-200/80 flex items-center justify-center text-neutral-700 font-bold text-sm">
                           →
                         </div>
                       )}
@@ -87,12 +93,14 @@ export default function WhatYouLearn() {
                       <img
                         alt={card.title}
                         src={card.image}
-                        className={`object-cover w-full h-full transition-transform duration-700 ${isActive ? 'scale-105' : 'scale-100 filter brightness-90'}`}
+                        className={`object-cover w-full h-full transition-transform duration-700 ${
+                          isActive ? 'scale-105' : 'scale-100 filter brightness-95'
+                        }`}
                       />
                     </div>
 
-                    {/* Active Expanded Footer Content */}
-                    {isActive && (
+                    {/* Active Expanded Content Footer */}
+                    {isActive ? (
                       <div className="z-10 p-6 flex items-end justify-between gap-3 bg-gradient-to-t from-black via-black/90 to-transparent">
                         <div className="space-y-1.5 max-w-md">
                           <h4 className="text-base sm:text-lg font-bold tracking-tight text-white">
@@ -116,31 +124,59 @@ export default function WhatYouLearn() {
                           </a>
                         </div>
                       </div>
+                    ) : (
+                      <div className="z-10 p-6 flex items-end justify-between gap-3">
+                        <div className="space-y-1.5 max-w-md">
+                          <h4 className="text-base sm:text-lg font-bold tracking-tight text-neutral-900">
+                            {card.title}
+                          </h4>
+                          <p className="text-xs leading-relaxed line-clamp-2 text-neutral-500">
+                            {card.description}
+                          </p>
+                        </div>
+                      </div>
                     )}
                   </div>
                 );
               })}
             </div>
 
-            {/* Mobile Stack View */}
-            <div className="block lg:hidden w-full max-w-md mx-auto space-y-4">
-              {CARDS.map((card) => (
-                <div key={card.id} className="rounded-3xl overflow-hidden bg-black text-white border border-neutral-800 flex flex-col justify-between">
-                  <div className="h-12 flex items-center gap-3 px-4 bg-black border-b border-white/10">
-                    <div className="w-6 h-6 rounded-lg bg-[#FF5533] flex items-center justify-center">
-                      <span className="text-white font-black text-xs">{card.initial}</span>
+            {/* Mobile Cards Stack View */}
+            <div className="block lg:hidden w-full max-w-96 sm:max-w-md md:max-w-lg mx-auto -mt-3">
+              <div className="relative w-full space-y-4">
+                {CARDS.map((card, index) => (
+                  <div
+                    key={card.id}
+                    className="rounded-3xl overflow-hidden bg-black text-white border border-white/15 flex flex-col justify-between shadow-xl"
+                  >
+                    <a
+                      className="h-12.5 flex items-center gap-3 px-4 bg-black border-b border-white/10 shrink-0 transition-colors duration-300"
+                      href={card.link}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <div className="w-6 h-6 rounded-lg bg-[#FF5533] flex items-center justify-center flex-shrink-0">
+                        <span className="text-white font-black text-sm leading-none">{card.initial}</span>
+                      </div>
+                      <h3 className="font-bold text-sm tracking-tight text-white flex-1">{card.category}</h3>
+                      <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center flex-shrink-0">
+                        <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                          <path d="m9 18 6-6-6-6" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                    </a>
+
+                    <div className="relative w-full h-56 bg-neutral-950 overflow-hidden">
+                      <img alt={card.title} src={card.image} className="w-full h-full object-cover object-center" />
                     </div>
-                    <h3 className="font-bold text-sm tracking-tight text-white flex-1">{card.category}</h3>
+
+                    <div className="p-5 bg-black border-t border-white/10 shrink-0 space-y-1.5">
+                      <h4 className="text-base font-bold text-white tracking-tight">{card.title}</h4>
+                      <p className="text-xs text-neutral-300 leading-relaxed font-normal">{card.description}</p>
+                    </div>
                   </div>
-                  <div className="relative w-full h-56 bg-neutral-950 overflow-hidden">
-                    <img alt={card.title} src={card.image} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="p-4 bg-black border-t border-white/10 space-y-1">
-                    <h4 className="text-sm font-bold text-white">{card.title}</h4>
-                    <p className="text-xs text-neutral-300 leading-relaxed">{card.description}</p>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
           </div>
@@ -149,3 +185,4 @@ export default function WhatYouLearn() {
     </div>
   );
 }
+
