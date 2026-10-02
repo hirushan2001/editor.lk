@@ -1,7 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import confetti from 'canvas-confetti';
 
 export default function PricingSection() {
   const [timeLeft, setTimeLeft] = useState({ hours: 10, minutes: 40, seconds: 0 });
+
+  const handleEnrollClick = (e) => {
+    try {
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
+    } catch (err) {
+      // Fallback silent
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -47,12 +60,13 @@ export default function PricingSection() {
 
                 <div className="pt-2 w-full">
                   <a
-                    className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-2xl sm:rounded-full bg-white text-black font-bold text-sm hover:bg-neutral-100 transition-all duration-300 shadow-md text-center"
+                    onClick={handleEnrollClick}
+                    className="relative overflow-hidden w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-2xl sm:rounded-full bg-white text-black font-bold text-sm hover:bg-neutral-100 transition-all duration-300 shadow-md text-center hover:scale-105 before:absolute before:inset-0 before:-translate-x-full hover:before:translate-x-full before:bg-gradient-to-r before:from-transparent before:via-black/10 before:to-transparent before:transition-transform before:duration-700"
                     href="https://lms.editor.lk/payment"
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Sign Up and Get your discount
+                    <span className="relative z-10">Sign Up and Get your discount</span>
                   </a>
                 </div>
               </div>
@@ -61,7 +75,7 @@ export default function PricingSection() {
               <div className="shrink-0 w-full lg:w-130 relative z-10 flex flex-col items-center pt-2 sm:pt-0">
                 <div className="w-full rounded-3xl border border-[rgba(255,90,31,0.3)] text-center p-4 sm:p-5" style={{background: "linear-gradient(135deg, rgba(255,90,31,0.35) 0%, rgba(14,13,13,0.95) 100%)", boxShadow: "0 10px 40px rgba(255, 75, 75, 0.2), inset 0 10px 30px rgba(255, 75, 75, 0.25)"}}>
                   <span className="text-[11px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#ffffffd1] inline-flex items-center gap-2 mb-3">
-                    <svg aria-hidden="true" className="lucide lucide-hourglass w-3.5 h-3.5 text-white/90" fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <svg aria-hidden="true" className="lucide lucide-hourglass w-3.5 h-3.5 text-white/90 animate-spin" style={{animationDuration: '6s'}} fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                       <path d="M5 22h14" />
                       <path d="M5 2h14" />
                       <path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22" />
@@ -109,7 +123,7 @@ export default function PricingSection() {
                   </div>
 
                   <div className="block sm:hidden w-full relative z-10 pt-1">
-                    <a className="w-full h-11 rounded-2xl bg-gradient-to-r from-[#F93B4E] to-[#FF6B35] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md shadow-red-500/20 active:scale-95 transition-all text-center" href="https://lms.editor.lk/payment" target="_blank" rel="noreferrer">
+                    <a onClick={handleEnrollClick} className="w-full h-11 rounded-2xl bg-gradient-to-r from-[#F93B4E] to-[#FF6B35] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md shadow-red-500/20 active:scale-95 transition-all text-center" href="https://lms.editor.lk/payment" target="_blank" rel="noreferrer">
                       <span>EXCLUSIVE BONUS</span>
                     </a>
                   </div>
@@ -119,7 +133,7 @@ export default function PricingSection() {
                       <img alt="CapCut Logo Back" className="object-contain transform rotate-60" src="/main/1/countdown/capcut-logo 1.png" style={{position: "absolute", height: "100%", width: "100%", left: "0", top: "0", right: "0", bottom: "0", color: "transparent"}} />
                     </div>
                     <div className="absolute right-4 -bottom-3 w-44 h-44 z-10">
-                      <img alt="CapCut Logo Front" className="object-contain transform transition-transform duration-500 group-hover:rotate-[8deg]" src="/main/1/countdown/capcut-logo 1.png" style={{position: "absolute", height: "100%", width: "100%", left: "0", top: "0", right: "0", bottom: "0", color: "transparent"}} />
+                      <img alt="CapCut Logo Front" className="object-contain transform transition-transform duration-500 group-hover:rotate-[8deg] group-hover:scale-110" src="/main/1/countdown/capcut-logo 1.png" style={{position: "absolute", height: "100%", width: "100%", left: "0", top: "0", right: "0", bottom: "0", color: "transparent"}} />
                     </div>
                   </div>
                 </div>
@@ -133,8 +147,8 @@ export default function PricingSection() {
                     </div>
                   </div>
 
-                  <a className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#E8344A] to-[#FF6B35] hover:from-orange-600 hover:to-red-600 text-white font-bold text-sm sm:text-base transition-all duration-300 shadow-lg shadow-orange-500/25 hover:scale-105 cursor-pointer select-none px-7 py-3 w-full h-11 rounded-2xl text-xs font-bold uppercase tracking-wider shadow-md select-none" href="https://lms.editor.lk/payment" target="_blank" rel="noreferrer">
-                    <span>Exclusive Bonus</span>
+                  <a onClick={handleEnrollClick} className="relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#E8344A] to-[#FF6B35] hover:from-orange-600 hover:to-red-600 text-white font-bold text-sm sm:text-base transition-all duration-300 shadow-lg shadow-orange-500/25 hover:scale-105 cursor-pointer select-none px-7 py-3 w-full h-11 rounded-2xl text-xs font-bold uppercase tracking-wider shadow-md select-none before:absolute before:inset-0 before:-translate-x-full hover:before:translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:transition-transform before:duration-700" href="https://lms.editor.lk/payment" target="_blank" rel="noreferrer">
+                    <span className="relative z-10">Exclusive Bonus</span>
                   </a>
 
                   <div className="flex flex-col gap-0.5">
@@ -153,7 +167,7 @@ export default function PricingSection() {
 
                 {/* Badges */}
                 <div className="flex items-center gap-2 mb-4 relative z-10 select-none">
-                  <div className="transform -skew-x-12 rounded-md bg-gradient-to-r from-[#FF4E27] to-[#FF723F] px-3 py-1 flex items-center justify-center border border-white/10 shadow-md">
+                  <div className="transform -skew-x-12 rounded-md bg-gradient-to-r from-[#FF4E27] to-[#FF723F] px-3 py-1 flex items-center justify-center border border-white/10 shadow-md animate-pulse">
                     <div className="transform skew-x-12 flex items-center gap-1 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider">
                       <svg className="w-3 h-3 text-white shrink-0" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24">
                         <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
@@ -177,8 +191,8 @@ export default function PricingSection() {
                   <div className="lg:col-span-5 space-y-3.5">
                     <h3 className="text-xs sm:text-2xl tracking-tight text-white/70 font-medium">Complete Masterclass</h3>
                     
-                    <div className="relative w-full h-75 aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-lg">
-                      <img alt="Complete CapCut Editing Masterclass" className="object-center w-full h-full object-cover" src="/main/1/countdown/complete-course.png" />
+                    <div className="relative w-full h-75 aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-lg group">
+                      <img alt="Complete CapCut Editing Masterclass" className="object-center w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="/main/1/countdown/complete-course.png" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex items-end p-4 sm:p-5">
                         <h4 className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-[1.1] drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
                           <div>Complete</div>
@@ -204,8 +218,8 @@ export default function PricingSection() {
 
                   <div className="lg:col-span-6 space-y-4 lg:pt-10 pt-2">
                     <div className="p-3 sm:pb-4 rounded-2xl sm:rounded-[20px] bg-gradient-to-b from-white/10 to-white/5 border border-white/10 space-y-2">
-                      <a className="w-full h-12 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-r from-[#F93B4E] to-[#FF6B35] text-white font-bold text-base sm:text-xl uppercase flex items-center justify-center shadow-lg shadow-red-500/25 active:scale-95 transition-all text-center" href="https://lms.editor.lk/payment" target="_blank" rel="noreferrer">
-                        Enroll Now
+                      <a onClick={handleEnrollClick} className="relative overflow-hidden w-full h-12 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-r from-[#F93B4E] to-[#FF6B35] text-white font-bold text-base sm:text-xl uppercase flex items-center justify-center shadow-lg shadow-red-500/25 active:scale-95 transition-all text-center hover:scale-[1.02] before:absolute before:inset-0 before:-translate-x-full hover:before:translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:transition-transform before:duration-700" href="https://lms.editor.lk/payment" target="_blank" rel="noreferrer">
+                        <span className="relative z-10">Enroll Now</span>
                       </a>
                       <p className="text-center text-[10px] sm:text-[11px] text-neutral-400 font-normal leading-none pt-0.5">
                         Enroll Now for <strong className="text-white font-semibold">LKR 20,000</strong> (Save 20% off)
@@ -225,7 +239,7 @@ export default function PricingSection() {
                     </div>
 
                     <div className="pt-1">
-                      <span className="inline-flex px-3 py-1 rounded-md bg-[#CCFF00] text-black font-extrabold text-[10px] sm:text-[12px] tracking-wider uppercase">
+                      <span className="inline-flex px-3 py-1 rounded-md bg-[#CCFF00] text-black font-extrabold text-[10px] sm:text-[12px] tracking-wider uppercase shadow-md">
                         25% CHEAPER
                       </span>
                     </div>

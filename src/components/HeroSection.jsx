@@ -49,6 +49,19 @@ const HERO_DATA = [
 
 export default function HeroSection() {
   const [activeTab, setActiveTab] = useState(2); // Music & Sound effects default
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const vh = window.innerHeight || 800;
+      const progress = Math.min(Math.max(window.scrollY / vh, 0), 1);
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -60,8 +73,18 @@ export default function HeroSection() {
   const activeMod = HERO_DATA[activeTab];
 
   return (
-    <div id="home" className="sticky top-0 z-10 w-full">
-      <div id="about">
+    <div id="home" className="sticky top-0 z-10 w-full bg-black">
+      <div
+        id="about"
+        style={{
+          transform: `scale(${1 - scrollProgress * 0.08}) translateY(${scrollProgress * -30}px)`,
+          opacity: 1 - scrollProgress * 0.85,
+          filter: `brightness(${1 - scrollProgress * 0.5})`,
+          transformOrigin: 'center top',
+          willChange: 'transform, opacity, filter',
+          transition: 'transform 0.05s ease-out, opacity 0.05s ease-out'
+        }}
+      >
         <section id="home" className="relative w-full h-dvh bg-black text-white pt-14 sm:pt-20 flex flex-col justify-between overflow-hidden">
           
           {/* Background Images Layer */}
@@ -69,8 +92,8 @@ export default function HeroSection() {
             {HERO_DATA.map((item, index) => (
               <div
                 key={item.id}
-                className={`absolute inset-0 w-full h-full transition-opacity duration-700 ${
-                  activeTab === index ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                className={`hero-bg-fade absolute inset-0 w-full h-full transition-all duration-700 ease-out ${
+                  activeTab === index ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-105 z-0 pointer-events-none'
                 }`}
               >
                 {/* Mobile Image */}
@@ -97,16 +120,16 @@ export default function HeroSection() {
 
           {/* Foreground Text */}
           <div className="relative z-30 max-w-340 2xl:max-w-408 mx-auto px-4 sm:px-6 lg:px-8 w-full grow flex flex-col justify-end sm:justify-center my-auto pt-12 sm:pt-16 lg:pt-12 pb-10 min-h-0">
-            <div className="max-w-xl lg:max-w-2xl 2xl:max-w-3xl space-y-3 sm:space-y-4">
+            <div key={activeTab} className="max-w-xl lg:max-w-2xl 2xl:max-w-3xl space-y-3 sm:space-y-4 animate-text-in">
               
               <div>
-                <div className="gsap-anim-item font-poppins tracking-wider inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] sm:text-[11px] font-semibold uppercase text-white">
-                  <span className="w-1.5 h-1.5 rounded-full bg-white/90"></span>
+                <div className="gsap-anim-item font-poppins tracking-wider inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] sm:text-[11px] font-semibold uppercase text-white shadow-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white/90 animate-pulse"></span>
                   {activeMod.badge}
                 </div>
               </div>
 
-              <h1 className="gsap-anim-item text-[40px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-white">
+              <h1 className="gsap-anim-item text-[40px] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-white drop-shadow-md">
                 {activeMod.title}
               </h1>
 
@@ -118,19 +141,19 @@ export default function HeroSection() {
               <div className="gsap-anim-item flex flex-wrap items-center gap-4 pt-1 sm:pt-2">
                 <div className="hidden sm:inline-flex items-center gap-4">
                   <a
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#E8344A] to-[#FF6B35] hover:from-orange-600 hover:to-red-600 text-white font-bold text-sm sm:text-base transition-all duration-300 shadow-lg shadow-orange-500/25 hover:scale-105 cursor-pointer select-none px-7 py-3"
+                    className="relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#E8344A] to-[#FF6B35] hover:from-orange-600 hover:to-red-600 text-white font-bold text-sm sm:text-base transition-all duration-300 shadow-lg shadow-orange-500/25 hover:scale-105 cursor-pointer select-none px-7 py-3 before:absolute before:inset-0 before:-translate-x-full hover:before:translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:transition-transform before:duration-700"
                     href="https://lms.editor.lk/payment"
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <span>Enroll Now</span>
-                    <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <span className="relative z-10">Enroll Now</span>
+                    <svg className="w-4 h-4 shrink-0 relative z-10" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </a>
 
                   <a
-                    className="inline-flex items-center justify-center gap-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-semibold text-sm sm:text-base transition-all duration-300 cursor-pointer select-none px-6 py-3"
+                    className="inline-flex items-center justify-center gap-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-semibold text-sm sm:text-base transition-all duration-300 cursor-pointer select-none px-6 py-3 hover:scale-105"
                     href="#curriculum"
                   >
                     <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">
@@ -194,8 +217,8 @@ export default function HeroSection() {
                       onClick={() => setActiveTab(item.id)}
                       className={`relative overflow-hidden px-5 py-2.5 sm:py-3 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer whitespace-nowrap inline-flex items-center justify-center ${
                         isActive
-                          ? 'bg-white text-black shadow-xl'
-                          : 'bg-[#1C1C1E] text-white/90 hover:bg-[#2A2A2E] hover:text-white border border-white/10'
+                          ? 'bg-white text-black shadow-xl scale-105'
+                          : 'bg-[#1C1C1E] text-white/90 hover:bg-[#2A2A2E] hover:text-white border border-white/10 hover:scale-102'
                       }`}
                     >
                       <span className="relative z-10">{item.name}</span>

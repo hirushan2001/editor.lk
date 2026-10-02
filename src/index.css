@@ -6,6 +6,31 @@
   color-scheme: dark;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+/* Lenis Smooth Scroll Engine Rules */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -45,31 +70,44 @@ body {
   100% { transform: translateX(0%); }
 }
 
-.font-poppins {
-  font-family: 'Poppins', sans-serif;
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
-.font-montserrat {
-  font-family: 'Montserrat', sans-serif;
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.03); }
 }
 
-.font-manrope {
-  font-family: 'Manrope', sans-serif;
+@keyframes textFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
+.font-poppins { font-family: 'Poppins', sans-serif; }
+.font-montserrat { font-family: 'Montserrat', sans-serif; }
+.font-manrope { font-family: 'Manrope', sans-serif; }
 
 /* Rounded 4xl utility */
 .rounded-t-4xl {
-  border-top-left-radius: 2rem;
-  border-top-right-radius: 2rem;
+  border-top-left-radius: 2.25rem;
+  border-top-right-radius: 2.25rem;
 }
 .rounded-b-4xl {
-  border-bottom-left-radius: 2rem;
-  border-bottom-right-radius: 2rem;
+  border-bottom-left-radius: 2.25rem;
+  border-bottom-right-radius: 2.25rem;
 }
 
-/* GSAP Hero background transition */
-.hero-bg-fade {
-  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+/* Hero Text Animation */
+.animate-text-in {
+  animation: textFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Scroll Reveal Animations */
@@ -85,23 +123,17 @@ body {
   transform: translateY(0);
 }
 
-/* Shimmer Sweep Effect */
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
 .animate-shimmer {
   animation: shimmer 2.5s infinite;
-}
-
-/* Gentle Pulse Animation */
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.8; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.03); }
 }
 
 .animate-pulse-glow {
   animation: pulseGlow 3s ease-in-out infinite;
 }
+
+/* Accordion card transition smoothing */
+.accordion-card {
+  transition: flex 0.5s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+}
+
 

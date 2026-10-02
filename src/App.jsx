@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Lenis from 'lenis';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import WhatYouLearn from './components/WhatYouLearn';
@@ -12,6 +13,25 @@ import FooterSection from './components/FooterSection';
 
 export default function App() {
   useEffect(() => {
+    // Initialize Lenis smooth scroll engine
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5,
+    });
+
+    let rafId;
+    function raf(time) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
+
+    // Scroll reveal observer
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -29,7 +49,11 @@ export default function App() {
     const elements = document.querySelectorAll('.reveal-on-scroll');
     elements.forEach((el) => observer.observe(el));
 
-    return () => observer.disconnect();
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+      observer.disconnect();
+    };
   }, []);
   return (
     <div className="min-h-full flex flex-col bg-neutral-950 text-white font-sans antialiased">
@@ -40,13 +64,16 @@ export default function App() {
       {/* Main Layout Container */}
       <div className="relative min-h-screen bg-neutral-950 font-sans text-white">
         
-        {/* Child 1: Sticky Hero Section */}
-        <HeroSection />
+        {/* Upper Hero & Learn Block */}
+        <div className="relative z-10 w-full bg-neutral-950">
+          {/* Child 1: Sticky Hero Section */}
+          <HeroSection />
 
-        {/* Child 2: What You'll Learn & Real Projects (White rounded card container) */}
-        <div className="relative z-20 w-full bg-white text-neutral-900 rounded-t-4xl rounded-b-4xl shadow-[0_-10px_25px_rgba(0,0,0,0.5)] sm:shadow-[0_-25px_60px_rgba(0,0,0,0.8),0_25px_60px_rgba(0,0,0,0.4)] overflow-hidden">
-          <WhatYouLearn />
-          <RealProjectsSection />
+          {/* Child 2: What You'll Learn & Real Projects (White rounded card container) */}
+          <div className="relative z-20 w-full bg-white text-neutral-900 rounded-t-4xl rounded-b-4xl shadow-[0_-10px_25px_rgba(0,0,0,0.5)] sm:shadow-[0_-25px_60px_rgba(0,0,0,0.8),0_25px_60px_rgba(0,0,0,0.4)] overflow-hidden">
+            <WhatYouLearn />
+            <RealProjectsSection />
+          </div>
         </div>
 
         {/* Child 3: Pricing & Offer Section */}
