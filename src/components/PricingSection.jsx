@@ -1,8 +1,101 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function PricingSection() {
   const [timeLeft, setTimeLeft] = useState({ hours: 10, minutes: 40, seconds: 0 });
+  const sectionRef = useRef(null);
+  const parallaxRef = useRef(null);
+  const topBannerRef = useRef(null);
+  const middleCardsRef = useRef(null);
+  const bottomOfferRef = useRef(null);
+
+  useGSAP(() => {
+    let mm = gsap.matchMedia();
+    mm.add("(min-width: 1024px)", () => {
+      if (parallaxRef.current && sectionRef.current) {
+        gsap.fromTo(
+          parallaxRef.current,
+          { yPercent: -8, opacity: 0.85, force3D: true },
+          {
+            yPercent: 0,
+            opacity: 1,
+            force3D: true,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 90%",
+              end: "top 10%",
+              scrub: 0.3
+            }
+          }
+        );
+        gsap.to(parallaxRef.current, {
+          scale: 0.97,
+          opacity: 0.7,
+          force3D: true,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "bottom 90%",
+            end: "bottom 10%",
+            scrub: 0.3
+          }
+        });
+      }
+    });
+
+    mm.add(
+      {
+        isDesktop: "(min-width: 1024px)",
+        isMobile: "(max-width: 1023px)"
+      },
+      (context) => {
+        if (!sectionRef.current) return;
+        const { isDesktop } = context.conditions;
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: isDesktop ? "top 75%" : "top 85%",
+            once: true
+          }
+        });
+
+        if (topBannerRef.current) {
+          tl.fromTo(
+            topBannerRef.current,
+            { opacity: 0, y: isDesktop ? 30 : 20, force3D: true },
+            { opacity: 1, y: 0, duration: 0.5, force3D: true, ease: "power2.out" }
+          );
+        }
+
+        if (middleCardsRef.current) {
+          const cards = middleCardsRef.current.querySelectorAll(".middle-card");
+          if (cards.length > 0) {
+            tl.fromTo(
+              cards,
+              { opacity: 0, y: isDesktop ? 30 : 20, force3D: true },
+              { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, force3D: true, ease: "power2.out" },
+              "-=0.2"
+            );
+          }
+        }
+
+        if (bottomOfferRef.current) {
+          tl.fromTo(
+            bottomOfferRef.current,
+            { opacity: 0, y: isDesktop ? 30 : 20, force3D: true },
+            { opacity: 1, y: 0, duration: 0.5, force3D: true, ease: "power2.out" },
+            "-=0.2"
+          );
+        }
+      }
+    );
+  }, { scope: sectionRef });
 
   const handleEnrollClick = (e) => {
     try {
@@ -31,11 +124,11 @@ export default function PricingSection() {
   return (
     <div className="relative z-10 w-full bg-neutral-950 -mt-10 pt-10" id="pricing">
       <div id="enroll">
-        <section className="relative z-10 w-full pt-16 sm:pt-20 pb-20 bg-neutral-950 text-white overflow-hidden">
-          <div className="pricing-parallax-container max-w-340 2xl:max-w-408 mx-auto px-0 sm:px-6 lg:px-8 space-y-6 sm:space-y-8 will-change-transform transform-gpu">
+        <section ref={sectionRef} className="relative z-10 w-full pt-16 sm:pt-20 pb-20 bg-neutral-950 text-white overflow-hidden">
+          <div ref={parallaxRef} className="pricing-parallax-container max-w-340 2xl:max-w-408 mx-auto px-0 sm:px-6 lg:px-8 space-y-6 sm:space-y-8 will-change-transform transform-gpu">
             
             {/* Top Banner Card */}
-            <div className="relative rounded-none sm:rounded-4xl p-5 sm:p-8 lg:px-10 h-auto border-y sm:border border-white/5 flex flex-col lg:flex-row items-center justify-between gap-6 overflow-hidden shadow-xl reveal-on-scroll" style={{backgroundRepeat: "repeat, no-repeat", boxShadow: "inset 0 1px 20px rgba(255, 255, 255, 0.05), 0 25px 50px -12px rgba(0, 0, 0, 0.7)"}}>
+            <div ref={topBannerRef} className="relative rounded-none sm:rounded-4xl p-5 sm:p-8 lg:px-10 h-auto border-y sm:border border-white/5 flex flex-col lg:flex-row items-center justify-between gap-6 overflow-hidden shadow-xl" style={{backgroundRepeat: "repeat, no-repeat", boxShadow: "inset 0 1px 20px rgba(255, 255, 255, 0.05), 0 25px 50px -12px rgba(0, 0, 0, 0.7)"}}>
               <div className="absolute -right-20 -top-20 w-80 h-80 pointer-events-none rounded-full" style={{background: "radial-gradient(circle, rgba(234, 88, 12, 0.12) 0%, transparent 70%)"}}></div>
               
               <div className="space-y-3.5 max-w-2xl relative z-10 text-left w-full">
@@ -103,10 +196,10 @@ export default function PricingSection() {
             </div>
 
             {/* Grid for Bonus Card & Main Pricing Card */}
-            <div className="flex flex-col lg:grid lg:grid-cols-3 gap-6 reveal-on-scroll">
+            <div className="flex flex-col lg:grid lg:grid-cols-3 gap-6">
               
               {/* Bonus Card */}
-              <div className="order-2 lg:order-1 lg:col-span-3 px-4 sm:px-0 grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div ref={middleCardsRef} className="order-2 lg:order-1 lg:col-span-3 px-4 sm:px-0 grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="middle-card lg:col-span-2 relative rounded-[28.26px] p-5 sm:p-8 border flex flex-col justify-between gap-5 sm:gap-6 overflow-hidden group shadow-lg lg:h-[180.84px]" style={{borderColor: "rgba(255, 255, 255, 0.05)"}}>
                   <div className="flex items-start justify-between relative z-10 w-full">
                     <div className="space-y-1 text-left">
@@ -162,7 +255,7 @@ export default function PricingSection() {
               </div>
 
               {/* Main Masterclass Pricing Box */}
-              <div className="order-1 lg:order-2 lg:col-span-3 mx-4 sm:mx-0 relative rounded-[28.26px] p-5 sm:p-8 lg:p-10 h-auto overflow-hidden shadow-2xl flex flex-col justify-between reveal-on-scroll" style={{background: "linear-gradient(225deg, rgba(255, 107, 56, 0.45) 0%, rgba(255, 107, 56, 0.12) 50%, #050505 85%)"}}>
+              <div ref={bottomOfferRef} className="order-1 lg:order-2 lg:col-span-3 mx-4 sm:mx-0 relative rounded-[28.26px] p-5 sm:p-8 lg:p-10 h-auto overflow-hidden shadow-2xl flex flex-col justify-between" style={{background: "linear-gradient(225deg, rgba(255, 107, 56, 0.45) 0%, rgba(255, 107, 56, 0.12) 50%, #050505 85%)"}}>
                 <div className="absolute -left-32 -bottom-32 w-96 h-96 pointer-events-none rounded-full" style={{background: "radial-gradient(circle, rgba(255, 92, 53, 0.12) 0%, transparent 70%)"}}></div>
 
                 {/* Badges */}
@@ -266,3 +359,4 @@ export default function PricingSection() {
     </div>
   );
 }
+
