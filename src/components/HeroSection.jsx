@@ -1,4 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const HERO_DATA = [
   {
@@ -49,19 +54,77 @@ const HERO_DATA = [
 
 export default function HeroSection() {
   const [activeTab, setActiveTab] = useState(2); // Music & Sound effects default
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const heroRef = useRef(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const vh = window.innerHeight || 800;
-      const progress = Math.min(Math.max(window.scrollY / vh, 0), 1);
-      setScrollProgress(progress);
-    };
+  useGSAP(() => {
+    let mm = gsap.matchMedia();
+    mm.add("(min-width: 640px)", () => {
+      if (heroRef.current) {
+        gsap.to(heroRef.current, {
+          yPercent: -12,
+          autoAlpha: 0.65,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+            refreshPriority: 10
+          }
+        });
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+        ScrollTrigger.create({
+          trigger: heroRef.current,
+          start: "bottom top",
+          onEnter: () => {
+            const home = document.getElementById("home");
+            if (home) gsap.set(home, { zIndex: 0, autoAlpha: 0 });
+          },
+          onLeaveBack: () => {
+            const home = document.getElementById("home");
+            if (home) gsap.set(home, { zIndex: 10, autoAlpha: 1 });
+          },
+          onRefresh: (self) => {
+            const home = document.getElementById("home");
+            if (home) {
+              if (self.scroll() > self.start) {
+                gsap.set(home, { zIndex: 0, autoAlpha: 0 });
+              } else {
+                gsap.set(home, { zIndex: 10, autoAlpha: 1 });
+              }
+            }
+          }
+        });
+      }
+    });
+
+    mm.add("(max-width: 639px)", () => {
+      if (heroRef.current) {
+        ScrollTrigger.create({
+          trigger: heroRef.current,
+          start: "bottom top",
+          onEnter: () => {
+            const home = document.getElementById("home");
+            if (home) gsap.set(home, { zIndex: 0, autoAlpha: 0 });
+          },
+          onLeaveBack: () => {
+            const home = document.getElementById("home");
+            if (home) gsap.set(home, { zIndex: 10, autoAlpha: 1 });
+          },
+          onRefresh: (self) => {
+            const home = document.getElementById("home");
+            if (home) {
+              if (self.scroll() > self.start) {
+                gsap.set(home, { zIndex: 0, autoAlpha: 0 });
+              } else {
+                gsap.set(home, { zIndex: 10, autoAlpha: 1 });
+              }
+            }
+          }
+        });
+      }
+    });
+  }, { scope: heroRef });
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -74,26 +137,16 @@ export default function HeroSection() {
 
   return (
     <div id="home" className="sticky top-0 z-10 w-full bg-black">
-      <div
-        id="about"
-        style={{
-          transform: `scale(${1 - scrollProgress * 0.08}) translateY(${scrollProgress * -30}px)`,
-          opacity: 1 - scrollProgress * 0.85,
-          filter: `brightness(${1 - scrollProgress * 0.5})`,
-          transformOrigin: 'center top',
-          willChange: 'transform, opacity, filter',
-          transition: 'transform 0.05s ease-out, opacity 0.05s ease-out'
-        }}
-      >
-        <section id="home" className="relative w-full h-dvh bg-black text-white pt-14 sm:pt-20 flex flex-col justify-between overflow-hidden">
+      <div id="about">
+        <section ref={heroRef} id="home" className="relative w-full h-dvh bg-black text-white pt-14 sm:pt-20 flex flex-col justify-between overflow-hidden">
           
           {/* Background Images Layer */}
           <div className="absolute inset-0 z-0 select-none overflow-hidden">
             {HERO_DATA.map((item, index) => (
               <div
                 key={item.id}
-                className={`hero-bg-fade absolute inset-0 w-full h-full transition-all duration-700 ease-out ${
-                  activeTab === index ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-105 z-0 pointer-events-none'
+                className={`gsap-bg-target gsap-bg-${index} absolute inset-0 w-full h-full transition-opacity duration-700 ease-out ${
+                  activeTab === index ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
                 }`}
               >
                 {/* Mobile Image */}
