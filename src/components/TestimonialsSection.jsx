@@ -1,4 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const TESTIMONIALS_ROW_1 = [
   {
@@ -63,8 +68,31 @@ const TESTIMONIALS_ROW_2 = [
 ];
 
 export default function TestimonialsSection() {
+  const containerRef = useRef(null);
+
+  useGSAP(() => {
+    if (containerRef.current) {
+      gsap.fromTo(
+        containerRef.current,
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 85%",
+            end: "top 40%",
+            scrub: 1
+          }
+        }
+      );
+    }
+  }, { scope: containerRef });
+
   return (
-    <div id="testimonials" className="w-full py-12 sm:py-20 bg-white text-neutral-900 overflow-hidden select-none reveal-on-scroll">
+    <div ref={containerRef} id="testimonials" className="w-full py-12 sm:py-20 bg-white text-neutral-900 overflow-hidden select-none">
       <div className="max-w-340 2xl:max-w-408 mx-auto px-4 sm:px-6 lg:px-8 text-center mb-8 sm:mb-16">
         <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-neutral-900 leading-[1.12]">
           Real Results from Real Students.
@@ -170,4 +198,5 @@ export default function TestimonialsSection() {
     </div>
   );
 }
+
 

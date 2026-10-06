@@ -1,8 +1,38 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function ComparisonSection() {
+  const sectionRef = useRef(null);
+  const tableRef = useRef(null);
+
+  useGSAP(() => {
+    if (tableRef.current) {
+      gsap.fromTo(
+        tableRef.current,
+        { y: 100, scale: 0.95, opacity: 0 },
+        {
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: tableRef.current,
+            start: "top 94%",
+            end: "top 15%",
+            scrub: 1.2
+          }
+        }
+      );
+    }
+  }, { scope: sectionRef });
+
   return (
-    <div id="comparison" className="w-full py-16 sm:py-18 bg-transparent text-neutral-900 overflow-hidden select-none reveal-on-scroll">
+    <div ref={sectionRef} id="comparison" className="w-full py-16 sm:py-18 bg-transparent text-neutral-900 overflow-hidden select-none">
       <div className="comparison-parallax-container max-w-340 2xl:max-w-408 mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         
         <div className="text-center space-y-3 sm:space-y-5">
@@ -18,7 +48,7 @@ export default function ComparisonSection() {
         </div>
 
         {/* Table */}
-        <div className="w-full max-w-6xl mx-auto rounded-[20px] sm:rounded-[15px] border border-[#FF7A59]/60 sm:border-[#FF5A1F] shadow-lg bg-white overflow-hidden">
+        <div ref={tableRef} className="w-full max-w-6xl mx-auto rounded-[20px] sm:rounded-[15px] border border-[#FF7A59]/60 sm:border-[#FF5A1F] shadow-lg bg-white overflow-hidden">
           <div className="grid grid-cols-3 border-b border-[#FF7A59]/30">
             <div className="p-2.5 sm:p-6 text-xs sm:text-2xl font-bold text-[#191C1D] flex items-center justify-center sm:justify-start text-center sm:text-left leading-tight sm:pl-8">Key Features</div>
             <div className="p-2.5 sm:p-6 text-xs sm:text-2xl font-bold text-neutral-400 border-x border-neutral-100 bg-[#FAF9F9] flex items-center justify-center sm:justify-start text-center sm:text-left leading-tight sm:pl-8">Typical <br className="sm:hidden" /> Courses</div>
@@ -98,3 +128,4 @@ export default function ComparisonSection() {
     </div>
   );
 }
+

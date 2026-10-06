@@ -1,8 +1,55 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function FooterSection() {
+  const footerRef = useRef(null);
+
+  useGSAP(() => {
+    const fixedLayer = footerRef.current?.querySelector(".footer-fixed-layer");
+    const curtainSpacer = footerRef.current?.querySelector(".footer-curtain-spacer");
+    const signatureText = footerRef.current?.querySelector(".footer-signature-text");
+
+    if (fixedLayer && curtainSpacer) {
+      gsap.set(fixedLayer, { opacity: 0, visibility: "hidden" });
+      ScrollTrigger.create({
+        trigger: curtainSpacer,
+        start: "top bottom",
+        refreshPriority: -10,
+        onEnter: () => {
+          gsap.set(fixedLayer, { opacity: 1, visibility: "visible" });
+        },
+        onLeaveBack: () => {
+          gsap.set(fixedLayer, { opacity: 0, visibility: "hidden" });
+        }
+      });
+    }
+
+    if (signatureText && curtainSpacer) {
+      gsap.fromTo(
+        signatureText,
+        { scale: 0.9, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: curtainSpacer,
+            start: "top bottom",
+            end: "bottom bottom",
+            refreshPriority: -10,
+            scrub: true
+          }
+        }
+      );
+    }
+  }, { scope: footerRef });
+
   return (
-    <footer className="relative w-full">
+    <footer ref={footerRef} className="relative w-full">
       <div className="relative z-20 w-full bg-[#0C0C0C] text-white border-t border-white/10 pt-1 pb-12 sm:pb-16 select-none">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12">
           
@@ -175,3 +222,4 @@ export default function FooterSection() {
     </footer>
   );
 }
+

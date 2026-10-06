@@ -1,8 +1,36 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function CurriculumMontage() {
+  const containerRef = useRef(null);
+
+  useGSAP(() => {
+    if (containerRef.current) {
+      gsap.fromTo(
+        containerRef.current,
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 85%",
+            end: "top 40%",
+            scrub: 1
+          }
+        }
+      );
+    }
+  }, { scope: containerRef });
+
   return (
-    <div className="relative w-full py-16 bg-[#08080A] reveal-on-scroll">
+    <div ref={containerRef} className="relative w-full py-16 bg-[#08080A]">
       <div className="relative w-full overflow-hidden bg-neutral-950 flex flex-col items-center justify-center border-b border-white/5 min-h-[360px] sm:min-h-[440px]">
         
         {/* Background Montage banner */}
@@ -113,3 +141,4 @@ export default function CurriculumMontage() {
     </div>
   );
 }
+
