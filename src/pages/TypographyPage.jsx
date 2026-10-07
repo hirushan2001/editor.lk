@@ -1,13 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function TypographyPage() {
+  const containerRef = useRef(null);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".hero-text-item",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.85, stagger: 0.12, ease: "power3.out" }
+      );
+      gsap.fromTo(
+        "[class*='hero-asset-1-'], [class*='mobile-asset-1-']",
+        { opacity: 0, scale: 0.95 },
+        { opacity: 1, scale: 1, duration: 0.8, delay: 0.25, stagger: 0.08, ease: "power3.out" }
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-neutral-950 font-sans text-white select-none">
+    <div ref={containerRef} className="relative min-h-screen bg-neutral-950 font-sans text-white select-none">
       <div id="home" className="sticky top-0 z-10 h-[100dvh] w-full">
         <section
           id="typography-hero"

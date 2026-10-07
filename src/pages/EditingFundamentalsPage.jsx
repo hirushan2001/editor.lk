@@ -1,13 +1,119 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const CAROUSEL_CARDS = [
+  { id: 0, title: "Take Yours Editorial Edit", src: "/main/1/hero/web/Funde-bg.png" },
+  { id: 1, title: "Creative Visual Color Edit", src: "/main/1/what-u-learn/master-of-funde.png" },
+  { id: 2, title: "High Speed Motion Blur", src: "/main/1/real-projects/motion.png" },
+  { id: 3, title: "Surreal Graphic Portrait", src: "/main/1/footer/camera.png" },
+  { id: 4, title: "Cinematic Lighting & Color", src: "/main/1/footer/color.png" },
+  { id: 5, title: "Build Your Future Neon Edit", src: "/main/1/footer/effect.png" },
+  { id: 6, title: "Vibrant Color Grading", src: "/main/1/hero/web/color-grad-new.png" },
+  { id: 7, title: "Dynamic Perspective 3D", src: "/main/1/what-u-learn/master-of-color.png" },
+  { id: 8, title: "Creative Composite Art", src: "/main/1/real-projects/before-after.png" },
+];
 
 export default function EditingFundamentalsPage() {
+  const [activeIndex, setActiveIndex] = useState(4);
+  const [screenCategory, setScreenCategory] = useState("desktop");
+  const heroRef = useRef(null);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 640) setScreenCategory("mobile");
+      else if (width < 1024) setScreenCategory("tablet");
+      else setScreenCategory("desktop");
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".hero-text-item",
+        { y: 35, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.85, stagger: 0.12, ease: "power3.out" }
+      );
+      gsap.fromTo(
+        ".hero-carousel-box",
+        { opacity: 0, scale: 0.92 },
+        { opacity: 1, scale: 1, duration: 0.9, delay: 0.25, ease: "power3.out" }
+      );
+      gsap.fromTo(
+        ".hero-footer-item",
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.6, delay: 0.55, ease: "power2.out" }
+      );
+    }, heroRef);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      ctx.revert();
+    };
   }, []);
 
+  const getCardStyle = (index) => {
+    const diff = index - activeIndex;
+    const absDiff = Math.abs(diff);
+
+    let spacing = 135;
+    let maxVisible = 4;
+    let baseScale = 1.05;
+
+    if (screenCategory === "mobile") {
+      spacing = 65;
+      maxVisible = 2;
+      baseScale = 0.9;
+    } else if (screenCategory === "tablet") {
+      spacing = 100;
+      maxVisible = 3;
+      baseScale = 0.98;
+    }
+
+    if (absDiff > maxVisible + 1) {
+      return {
+        opacity: 0,
+        pointerEvents: "none",
+        transform: `translate3d(${diff * spacing}px, 120px, -400px) scale(0.3)`,
+        zIndex: 0,
+      };
+    }
+
+    const translateX = diff * spacing;
+    const translateY = Math.pow(absDiff, 1.55) * (screenCategory === "mobile" ? 6 : 10);
+    const translateZ = diff === 0 ? 120 : -absDiff * (screenCategory === "mobile" ? 45 : 70);
+    const rotateY = -diff * (screenCategory === "mobile" ? 16 : 22);
+    const rotateZ = -diff * (screenCategory === "mobile" ? 2.5 : 3.8);
+    const scale = diff === 0 ? baseScale : Math.max(0.45, baseScale - absDiff * (screenCategory === "mobile" ? 0.12 : 0.08));
+    const zIndex = 50 - absDiff * 5;
+    const opacity = absDiff > maxVisible ? 0 : absDiff === maxVisible ? 0.4 : 1 - absDiff * 0.08;
+    const brightness = diff === 0 ? 1.1 : Math.max(0.5, 0.95 - absDiff * 0.12);
+
+    return {
+      transform: `translate3d(${translateX}px, ${translateY}px, ${translateZ}px) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`,
+      zIndex,
+      opacity,
+      filter: `brightness(${brightness}) ${diff === 0 ? "drop-shadow(0 25px 35px rgba(0,0,0,0.8))" : "drop-shadow(0 12px 24px rgba(0,0,0,0.6))"}`,
+      transition: "transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, filter 0.6s ease",
+    };
+  };
+
+  const nextCard = () => {
+    setActiveIndex((prev) => (prev + 1) % CAROUSEL_CARDS.length);
+  };
+
+  const prevCard = () => {
+    setActiveIndex((prev) => (prev - 1 + CAROUSEL_CARDS.length) % CAROUSEL_CARDS.length);
+  };
+
   return (
-    <div className="relative min-h-screen bg-neutral-950 font-sans text-white select-none">
+    <div ref={heroRef} className="relative min-h-screen bg-neutral-950 font-sans text-white select-none">
       <div id="home" className="sticky top-0 z-10 h-[100dvh] w-full">
         <section
           id="home"
@@ -40,253 +146,52 @@ export default function EditingFundamentalsPage() {
                 className="hero-carousel-box opacity-0 relative w-full h-[310px] xs:h-[340px] sm:h-[370px] md:h-[400px] lg:h-[430px] flex items-center justify-center"
                 style={{ perspective: "1200px" }}
               >
-                <div
-                  className="absolute cursor-pointer will-change-transform select-none transition-[filter] duration-300 hover:brightness-110"
-                  style={{ transformStyle: "preserve-3d" }}
-                  title="Click to focus Take Yours Editorial Edit"
+                {/* Carousel Left Arrow */}
+                <button
+                  onClick={prevCard}
+                  aria-label="Previous card"
+                  className="absolute left-2 sm:left-6 z-50 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/20 transition-transform active:scale-90"
                 >
-                  <div className="relative w-[180px] xs:w-[200px] sm:w-[230px] md:w-[255px] lg:w-[275px] aspect-[3/4] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/15 bg-neutral-900">
-                    <img
-                      alt="Take Yours Editorial Edit"
-                      decoding="async"
-                      data-nimg="fill"
-                      className="object-cover pointer-events-none"
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+
+                {CAROUSEL_CARDS.map((card, index) => {
+                  const style = getCardStyle(index);
+                  return (
+                    <div
+                      key={card.id}
+                      onClick={() => setActiveIndex(index)}
+                      className="absolute cursor-pointer will-change-transform select-none hover:brightness-110"
                       style={{
-                        position: "absolute",
-                        height: "100%",
-                        width: "100%",
-                        left: 0,
-                        top: 0,
-                        right: 0,
-                        bottom: 0,
-                        color: "transparent",
+                        transformStyle: "preserve-3d",
+                        ...style,
                       }}
-                      sizes="(max-width: 640px) 200px, (max-width: 1024px) 255px, 280px"
-                      srcSet="/main/1/hero/web/Funde-bg.png"
-                      src="/main/1/hero/web/Funde-bg.png"
-                    />
-                  </div>
-                </div>
-                <div
-                  className="absolute cursor-pointer will-change-transform select-none transition-[filter] duration-300 hover:brightness-110"
-                  style={{ transformStyle: "preserve-3d" }}
-                  title="Click to focus Creative Visual Color Edit"
+                      title={`Click to focus ${card.title}`}
+                    >
+                      <div className="relative w-[180px] xs:w-[200px] sm:w-[230px] md:w-[255px] lg:w-[275px] aspect-[3/4] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/15 bg-neutral-900">
+                        <img
+                          alt={card.title}
+                          decoding="async"
+                          className="object-cover pointer-events-none w-full h-full absolute inset-0"
+                          src={card.src}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+
+                {/* Carousel Right Arrow */}
+                <button
+                  onClick={nextCard}
+                  aria-label="Next card"
+                  className="absolute right-2 sm:right-6 z-50 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/20 transition-transform active:scale-90"
                 >
-                  <div className="relative w-[180px] xs:w-[200px] sm:w-[230px] md:w-[255px] lg:w-[275px] aspect-[3/4] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/15 bg-neutral-900">
-                    <img
-                      alt="Creative Visual Color Edit"
-                      decoding="async"
-                      data-nimg="fill"
-                      className="object-cover pointer-events-none"
-                      style={{
-                        position: "absolute",
-                        height: "100%",
-                        width: "100%",
-                        left: 0,
-                        top: 0,
-                        right: 0,
-                        bottom: 0,
-                        color: "transparent",
-                      }}
-                      sizes="(max-width: 640px) 200px, (max-width: 1024px) 255px, 280px"
-                      srcSet="/main/1/what-u-learn/master-of-funde.png"
-                      src="/main/1/what-u-learn/master-of-funde.png"
-                    />
-                  </div>
-                </div>
-                <div
-                  className="absolute cursor-pointer will-change-transform select-none transition-[filter] duration-300 hover:brightness-110"
-                  style={{ transformStyle: "preserve-3d" }}
-                  title="Click to focus High Speed Motion Blur"
-                >
-                  <div className="relative w-[180px] xs:w-[200px] sm:w-[230px] md:w-[255px] lg:w-[275px] aspect-[3/4] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/15 bg-neutral-900">
-                    <img
-                      alt="High Speed Motion Blur"
-                      decoding="async"
-                      data-nimg="fill"
-                      className="object-cover pointer-events-none"
-                      style={{
-                        position: "absolute",
-                        height: "100%",
-                        width: "100%",
-                        left: 0,
-                        top: 0,
-                        right: 0,
-                        bottom: 0,
-                        color: "transparent",
-                      }}
-                      sizes="(max-width: 640px) 200px, (max-width: 1024px) 255px, 280px"
-                      srcSet="/main/1/real-projects/motion.png"
-                      src="/main/1/real-projects/motion.png"
-                    />
-                  </div>
-                </div>
-                <div
-                  className="absolute cursor-pointer will-change-transform select-none transition-[filter] duration-300 hover:brightness-110"
-                  style={{ transformStyle: "preserve-3d" }}
-                  title="Click to focus Surreal Graphic Portrait"
-                >
-                  <div className="relative w-[180px] xs:w-[200px] sm:w-[230px] md:w-[255px] lg:w-[275px] aspect-[3/4] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/15 bg-neutral-900">
-                    <img
-                      alt="Surreal Graphic Portrait"
-                      decoding="async"
-                      data-nimg="fill"
-                      className="object-cover pointer-events-none"
-                      style={{
-                        position: "absolute",
-                        height: "100%",
-                        width: "100%",
-                        left: 0,
-                        top: 0,
-                        right: 0,
-                        bottom: 0,
-                        color: "transparent",
-                      }}
-                      sizes="(max-width: 640px) 200px, (max-width: 1024px) 255px, 280px"
-                      srcSet="/main/1/footer/camera.png"
-                      src="/main/1/footer/camera.png"
-                    />
-                  </div>
-                </div>
-                <div
-                  className="absolute cursor-pointer will-change-transform select-none transition-[filter] duration-300 hover:brightness-110"
-                  style={{ transformStyle: "preserve-3d" }}
-                  title="Click to focus Cinematic Lighting & Color"
-                >
-                  <div className="relative w-[180px] xs:w-[200px] sm:w-[230px] md:w-[255px] lg:w-[275px] aspect-[3/4] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/15 bg-neutral-900">
-                    <img
-                      alt="Cinematic Lighting & Color"
-                      decoding="async"
-                      data-nimg="fill"
-                      className="object-cover pointer-events-none"
-                      style={{
-                        position: "absolute",
-                        height: "100%",
-                        width: "100%",
-                        left: 0,
-                        top: 0,
-                        right: 0,
-                        bottom: 0,
-                        color: "transparent",
-                      }}
-                      sizes="(max-width: 640px) 200px, (max-width: 1024px) 255px, 280px"
-                      srcSet="/main/1/footer/color.png"
-                      src="/main/1/footer/color.png"
-                    />
-                  </div>
-                </div>
-                <div
-                  className="absolute cursor-pointer will-change-transform select-none transition-[filter] duration-300 hover:brightness-110"
-                  style={{ transformStyle: "preserve-3d" }}
-                  title="Click to focus Build Your Future Neon Edit"
-                >
-                  <div className="relative w-[180px] xs:w-[200px] sm:w-[230px] md:w-[255px] lg:w-[275px] aspect-[3/4] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/15 bg-neutral-900">
-                    <img
-                      alt="Build Your Future Neon Edit"
-                      loading="lazy"
-                      decoding="async"
-                      data-nimg="fill"
-                      className="object-cover pointer-events-none"
-                      style={{
-                        position: "absolute",
-                        height: "100%",
-                        width: "100%",
-                        left: 0,
-                        top: 0,
-                        right: 0,
-                        bottom: 0,
-                        color: "transparent",
-                      }}
-                      sizes="(max-width: 640px) 200px, (max-width: 1024px) 255px, 280px"
-                      srcSet="/main/1/footer/effect.png"
-                      src="/main/1/footer/effect.png"
-                    />
-                  </div>
-                </div>
-                <div
-                  className="absolute cursor-pointer will-change-transform select-none transition-[filter] duration-300 hover:brightness-110"
-                  style={{ transformStyle: "preserve-3d" }}
-                  title="Click to focus Vibrant Color Grading"
-                >
-                  <div className="relative w-[180px] xs:w-[200px] sm:w-[230px] md:w-[255px] lg:w-[275px] aspect-[3/4] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/15 bg-neutral-900">
-                    <img
-                      alt="Vibrant Color Grading"
-                      loading="lazy"
-                      decoding="async"
-                      data-nimg="fill"
-                      className="object-cover pointer-events-none"
-                      style={{
-                        position: "absolute",
-                        height: "100%",
-                        width: "100%",
-                        left: 0,
-                        top: 0,
-                        right: 0,
-                        bottom: 0,
-                        color: "transparent",
-                      }}
-                      sizes="(max-width: 640px) 200px, (max-width: 1024px) 255px, 280px"
-                      srcSet="/main/1/hero/web/color-grad-new.png"
-                      src="/main/1/hero/web/color-grad-new.png"
-                    />
-                  </div>
-                </div>
-                <div
-                  className="absolute cursor-pointer will-change-transform select-none transition-[filter] duration-300 hover:brightness-110"
-                  style={{ transformStyle: "preserve-3d" }}
-                  title="Click to focus Dynamic Perspective 3D"
-                >
-                  <div className="relative w-[180px] xs:w-[200px] sm:w-[230px] md:w-[255px] lg:w-[275px] aspect-[3/4] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/15 bg-neutral-900">
-                    <img
-                      alt="Dynamic Perspective 3D"
-                      loading="lazy"
-                      decoding="async"
-                      data-nimg="fill"
-                      className="object-cover pointer-events-none"
-                      style={{
-                        position: "absolute",
-                        height: "100%",
-                        width: "100%",
-                        left: 0,
-                        top: 0,
-                        right: 0,
-                        bottom: 0,
-                        color: "transparent",
-                      }}
-                      sizes="(max-width: 640px) 200px, (max-width: 1024px) 255px, 280px"
-                      srcSet="/main/1/what-u-learn/master-of-color.png"
-                      src="/main/1/what-u-learn/master-of-color.png"
-                    />
-                  </div>
-                </div>
-                <div
-                  className="absolute cursor-pointer will-change-transform select-none transition-[filter] duration-300 hover:brightness-110"
-                  style={{ transformStyle: "preserve-3d" }}
-                  title="Click to focus Creative Composite Art"
-                >
-                  <div className="relative w-[180px] xs:w-[200px] sm:w-[230px] md:w-[255px] lg:w-[275px] aspect-[3/4] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/15 bg-neutral-900">
-                    <img
-                      alt="Creative Composite Art"
-                      loading="lazy"
-                      decoding="async"
-                      data-nimg="fill"
-                      className="object-cover pointer-events-none"
-                      style={{
-                        position: "absolute",
-                        height: "100%",
-                        width: "100%",
-                        left: 0,
-                        top: 0,
-                        right: 0,
-                        bottom: 0,
-                        color: "transparent",
-                      }}
-                      sizes="(max-width: 640px) 200px, (max-width: 1024px) 255px, 280px"
-                      srcSet="/main/1/real-projects/before-after.png"
-                      src="/main/1/real-projects/before-after.png"
-                    />
-                  </div>
-                </div>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>

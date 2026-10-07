@@ -1,13 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
 
 export default function MusicAndSoundPage() {
+  const containerRef = useRef(null);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".hero-main-title, .hero-capcut-text, .hero-desc-block",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.85, stagger: 0.12, ease: "power3.out" }
+      );
+      gsap.fromTo(
+        ".hero-person-wrapper",
+        { opacity: 0, scale: 0.9 },
+        { opacity: 1, scale: 1, duration: 0.9, delay: 0.2, ease: "power3.out" }
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-neutral-950 font-sans text-white select-none">
+    <div ref={containerRef} className="relative min-h-screen bg-neutral-950 font-sans text-white select-none">
       <div id="home" className="relative w-full z-30">
         <section
           id="home"

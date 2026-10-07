@@ -1,13 +1,44 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function ColorGradingPage() {
+  const containerRef = useRef(null);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".hero-text-item",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.85, stagger: 0.12, ease: "power3.out" }
+      );
+      gsap.fromTo(
+        "[class*='hero-asset-2-'], [class*='mobile-asset-2-']",
+        { opacity: 0, scale: 0.95 },
+        { opacity: 1, scale: 1, duration: 0.8, delay: 0.25, stagger: 0.08, ease: "power3.out" }
+      );
+      gsap.fromTo(
+        "[class*='step-node-'], [class*='mobile-step-node-']",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power2.out" }
+      );
+      gsap.fromTo(
+        "[class*='step-arrow-'], [class*='mobile-step-arrow-']",
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5, delay: 0.4 }
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-neutral-950 font-sans text-white select-none">
+    <div ref={containerRef} className="relative min-h-screen bg-neutral-950 font-sans text-white select-none">
       <div id="home" className="sticky top-0 z-10 h-[100dvh] w-full">
         <section
           id="color-grading-hero"
