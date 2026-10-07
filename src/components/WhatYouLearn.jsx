@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -224,10 +225,8 @@ export default function WhatYouLearn() {
                     style={{ zIndex: (index + 1) * 10, transformOrigin: 'top center' }}
                     className="mobile-stack-card absolute left-0 right-0 top-12 bottom-0 rounded-3xl overflow-hidden bg-black text-white border border-white/15 flex flex-col justify-between shadow-xl"
                   >
-                    <a
-                      href={card.link}
-                      target="_blank"
-                      rel="noreferrer"
+                    <Link
+                      to={card.href}
                       className="mobile-card-header h-12.5 flex items-center gap-3 px-4 bg-black border-b border-white/10 shrink-0 transition-colors duration-300"
                     >
                       <div className="w-6 h-6 rounded-lg bg-[#FF5533] flex items-center justify-center flex-shrink-0">
@@ -241,7 +240,7 @@ export default function WhatYouLearn() {
                           <path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6" />
                         </svg>
                       </div>
-                    </a>
+                    </Link>
 
                     <div className="relative w-full flex-1 bg-neutral-950 overflow-hidden">
                       <img
@@ -333,17 +332,16 @@ export default function WhatYouLearn() {
                       </div>
 
                       {isActive && (
-                        <div className="shrink-0">
-                          <a
-                            href={card.link}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#E8344A] to-[#FF6B35] text-white font-bold text-sm transition-all duration-300 shadow-lg hover:scale-105 w-12 h-12"
+                        <div className="shrink-0 flex items-center gap-2">
+                          <Link
+                            to={card.href}
+                            className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#E8344A] to-[#FF6B35] hover:from-orange-600 hover:to-red-600 text-white font-extrabold text-xs sm:text-sm transition-all duration-300 shadow-lg shadow-orange-500/30 hover:scale-105 px-5 py-3"
                           >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <span>View Module Page</span>
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                             </svg>
-                          </a>
+                          </Link>
                         </div>
                       )}
                     </div>

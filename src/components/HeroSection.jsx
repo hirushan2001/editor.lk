@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -174,8 +175,8 @@ export default function HeroSection() {
               </p>
 
               {/* Action Buttons */}
-              <div className="gsap-anim-item flex flex-wrap items-center gap-4 pt-1 sm:pt-2">
-                <div className="hidden sm:inline-flex items-center gap-4">
+              <div className="gsap-anim-item flex flex-wrap items-center gap-3 sm:gap-4 pt-1 sm:pt-2">
+                <div className="hidden sm:inline-flex items-center gap-3 sm:gap-4">
                   <a
                     className="relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#E8344A] to-[#FF6B35] hover:from-orange-600 hover:to-red-600 text-white font-bold text-sm sm:text-base transition-all duration-300 shadow-lg shadow-orange-500/25 hover:scale-105 cursor-pointer select-none px-7 py-3 before:absolute before:inset-0 before:-translate-x-full hover:before:translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:transition-transform before:duration-700"
                     href="https://lms.editor.lk/payment"
@@ -188,12 +189,22 @@ export default function HeroSection() {
                     </svg>
                   </a>
 
+                  <Link
+                    to={activeMod.slug}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-orange-500/20 hover:bg-orange-500/30 text-orange-400 border border-orange-500/40 font-bold text-sm sm:text-base transition-all duration-300 cursor-pointer select-none px-6 py-3 hover:scale-105"
+                  >
+                    <span>View {activeMod.name} Page</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" />
+                    </svg>
+                  </Link>
+
                   <a
-                    className="inline-flex items-center justify-center gap-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-semibold text-sm sm:text-base transition-all duration-300 cursor-pointer select-none px-6 py-3 hover:scale-105"
+                    className="inline-flex items-center justify-center gap-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-semibold text-sm sm:text-base transition-all duration-300 cursor-pointer select-none px-5 py-3 hover:scale-105"
                     href="#curriculum"
                   >
-                    <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-                      <svg className="w-3.5 h-3.5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                      <svg className="w-3 h-3 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
                         <path clipRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" fillRule="evenodd" />
                       </svg>
                     </div>
@@ -201,18 +212,30 @@ export default function HeroSection() {
                   </a>
                 </div>
 
-                <div className="sm:hidden inline-flex w-full">
-                  <a
-                    className="min-w-[80%] py-3 rounded-full bg-gradient-to-r from-[#F93B4E] to-[#FF6B35] text-white font-semibold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-lg shadow-red-500/25 active:scale-95 transition-all"
-                    href="https://lms.editor.lk/payment"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <span>Enroll Now</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" />
-                    </svg>
-                  </a>
+                <div className="sm:hidden flex flex-col gap-2 w-full">
+                  <div className="flex gap-2 w-full">
+                    <a
+                      className="flex-1 py-3 rounded-full bg-gradient-to-r from-[#F93B4E] to-[#FF6B35] text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg shadow-red-500/25 active:scale-95 transition-all"
+                      href="https://lms.editor.lk/payment"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <span>Enroll Now</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" />
+                      </svg>
+                    </a>
+
+                    <Link
+                      to={activeMod.slug}
+                      className="py-3 px-4 rounded-full bg-orange-500/20 border border-orange-500/40 text-orange-300 font-bold text-xs flex items-center justify-center gap-1 active:scale-95 transition-all"
+                    >
+                      <span>Page</span>
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" />
+                      </svg>
+                    </Link>
+                  </div>
                 </div>
               </div>
 
@@ -248,20 +271,35 @@ export default function HeroSection() {
                 {HERO_DATA.map((item) => {
                   const isActive = activeTab === item.id;
                   return (
-                    <button
-                      key={item.id}
-                      onClick={() => setActiveTab(item.id)}
-                      className={`relative overflow-hidden px-5 py-2.5 sm:py-3 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer whitespace-nowrap inline-flex items-center justify-center ${
-                        isActive
-                          ? 'bg-white text-black shadow-xl scale-105'
-                          : 'bg-[#1C1C1E] text-white/90 hover:bg-[#2A2A2E] hover:text-white border border-white/10 hover:scale-102'
-                      }`}
-                    >
-                      <span className="relative z-10">{item.name}</span>
-                      {isActive && (
-                        <span key={`progress-${item.id}`} className="absolute bottom-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-[#F93B4E] to-[#FF6B35] rounded-b-2xl animate-[fillProgress_5s_linear_infinite]"></span>
-                      )}
-                    </button>
+                    <div key={item.id} className="relative flex items-center gap-1">
+                      <button
+                        onClick={() => setActiveTab(item.id)}
+                        className={`relative overflow-hidden px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer whitespace-nowrap inline-flex items-center justify-center ${
+                          isActive
+                            ? 'bg-white text-black shadow-xl scale-105'
+                            : 'bg-[#1C1C1E] text-white/90 hover:bg-[#2A2A2E] hover:text-white border border-white/10 hover:scale-102'
+                        }`}
+                      >
+                        <span className="relative z-10">{item.name}</span>
+                        {isActive && (
+                          <span key={`progress-${item.id}`} className="absolute bottom-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-[#F93B4E] to-[#FF6B35] rounded-b-2xl animate-[fillProgress_5s_linear_infinite]"></span>
+                        )}
+                      </button>
+
+                      <Link
+                        to={item.slug}
+                        title={`Open full ${item.name} page`}
+                        className={`p-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-center ${
+                          isActive
+                            ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30 hover:bg-orange-600 scale-105'
+                            : 'bg-[#1C1C1E] text-white/70 hover:text-white hover:bg-[#2A2A2E] border border-white/10'
+                        }`}
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" />
+                        </svg>
+                      </Link>
+                    </div>
                   );
                 })}
               </div>

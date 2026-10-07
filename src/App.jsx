@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -12,10 +13,11 @@ import TestimonialsSection from './components/TestimonialsSection';
 import FaqSection from './components/FaqSection';
 import CurriculumMontage from './components/CurriculumMontage';
 import FooterSection from './components/FooterSection';
+import ModuleDetailPage from './components/ModuleDetailPage';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function App() {
+function HomePage() {
   useEffect(() => {
     // Initialize Lenis smooth scroll engine
     const lenis = new Lenis({
@@ -62,6 +64,7 @@ export default function App() {
       observer.disconnect();
     };
   }, []);
+
   return (
     <div className="min-h-full flex flex-col bg-neutral-950 text-white font-sans antialiased">
       
@@ -106,5 +109,20 @@ export default function App() {
       </div>
 
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/editing-fundamentals" element={<ModuleDetailPage />} />
+        <Route path="/color-grading" element={<ModuleDetailPage />} />
+        <Route path="/music-and-sound" element={<ModuleDetailPage />} />
+        <Route path="/typography" element={<ModuleDetailPage />} />
+        <Route path="/module/:moduleId" element={<ModuleDetailPage />} />
+      </Routes>
+    </Router>
   );
 }
