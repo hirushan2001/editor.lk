@@ -36,12 +36,13 @@ export default function FooterSection() {
           scale: 1,
           opacity: 1,
           ease: "none",
+          force3D: true,
           scrollTrigger: {
             trigger: curtainSpacer,
             start: "top bottom",
             end: "bottom bottom",
             refreshPriority: -10,
-            scrub: true
+            scrub: 0.3
           }
         }
       );

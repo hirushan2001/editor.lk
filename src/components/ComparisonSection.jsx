@@ -20,11 +20,12 @@ export default function ComparisonSection() {
           opacity: 1,
           duration: 1,
           ease: "power3.out",
+          force3D: true,
           scrollTrigger: {
             trigger: tableRef.current,
             start: "top 94%",
             end: "top 15%",
-            scrub: 1.2
+            scrub: 0.3
           }
         }
       );

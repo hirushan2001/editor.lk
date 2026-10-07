@@ -80,11 +80,12 @@ export default function TestimonialsSection() {
           opacity: 1,
           duration: 1,
           ease: "power2.out",
+          force3D: true,
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top 85%",
             end: "top 40%",
-            scrub: 1
+            scrub: 0.3
           }
         }
       );

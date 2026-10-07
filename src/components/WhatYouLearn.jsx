@@ -78,11 +78,12 @@ export default function WhatYouLearn() {
             opacity: 1,
             duration: 1,
             ease: "power3.out",
+            force3D: true,
             scrollTrigger: {
               trigger: desktopContainerRef.current,
               start: "top 70%",
               end: "top 15%",
-              scrub: 1.2
+              scrub: 0.3
             }
           }
         );

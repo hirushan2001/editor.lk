@@ -33,11 +33,12 @@ export default function RealProjectsSection() {
             return `inset(0px ${padding}px round 24px)`;
           },
           ease: "none",
+          force3D: true,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: startTrigger,
             end: endTrigger,
-            scrub: 1,
+            scrub: 0.3,
             invalidateOnRefresh: true
           }
         }
@@ -52,11 +53,12 @@ export default function RealProjectsSection() {
           {
             scale: 1,
             ease: "none",
+            force3D: true,
             scrollTrigger: {
               trigger: sectionRef.current,
               start: startTrigger,
               end: endTrigger,
-              scrub: 1
+              scrub: 0.3
             }
           }
         );
@@ -75,11 +77,12 @@ export default function RealProjectsSection() {
               duration: 0.8,
               stagger: 0.15,
               ease: "power3.out",
+              force3D: true,
               scrollTrigger: {
                 trigger: cardsRef.current,
                 start: "top 85%",
                 end: "top 20%",
-                scrub: 1
+                scrub: 0.3
               }
             }
           );

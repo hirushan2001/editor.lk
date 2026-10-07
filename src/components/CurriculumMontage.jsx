@@ -24,11 +24,12 @@ export default function CurriculumMontage() {
           scale: 1,
           opacity: 1,
           ease: "none",
+          force3D: true,
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top 95%",
             end: "top 35%",
-            scrub: 1
+            scrub: 0.3
           }
         }
       );
@@ -46,6 +47,7 @@ export default function CurriculumMontage() {
           duration: 0.8,
           stagger: 0.15,
           ease: "power2.out",
+          force3D: true,
           scrollTrigger: {
             trigger: contentRef.current,
             start: "top 85%",
@@ -69,6 +71,7 @@ export default function CurriculumMontage() {
           duration: 0.8,
           stagger: 0.1,
           ease: "power3.out",
+          force3D: true,
           scrollTrigger: {
             trigger: gridRef.current,
             start: "top 80%",
@@ -83,11 +86,12 @@ export default function CurriculumMontage() {
         gsap.to(col, {
           y: speed,
           ease: "none",
+          force3D: true,
           scrollTrigger: {
             trigger: gridRef.current,
             start: "top bottom",
             end: "bottom top",
-            scrub: 1
+            scrub: 0.3
           }
         });
       });
@@ -95,7 +99,7 @@ export default function CurriculumMontage() {
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef} className="relative w-full py-12 sm:py-16 bg-[#08080A] overflow-hidden">
+    <div ref={containerRef} className="relative w-full py-12 sm:py-16 bg-[#08080A] overflow-hidden transform-gpu will-change-transform">
       
       {/* Header Banner Block */}
       <div className="relative w-full overflow-hidden bg-neutral-950 flex flex-col items-center justify-center border-b border-white/5 min-h-[360px] sm:min-h-[440px]">
@@ -106,6 +110,8 @@ export default function CurriculumMontage() {
             alt="CapCut Masterclass Curriculum Background"
             className="object-cover object-top w-full h-full"
             src="/main/1/footer/ui-montage.png"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-[#0C0C0C] via-black/40 to-[#0C0C0C] pointer-events-none"></div>
@@ -140,65 +146,65 @@ export default function CurriculumMontage() {
           <div ref={gridRef} className="grid grid-cols-3 lg:grid-cols-6 gap-1.5 sm:gap-3.5 w-full items-start">
             
             {/* Col 1 */}
-            <div className="flex flex-col gap-2 sm:gap-3">
+            <div className="flex flex-col gap-2 sm:gap-3 transform-gpu will-change-transform">
               <div className="relative h-24 sm:h-50 w-full shrink-0 rounded-xl sm:rounded-2xl overflow-hidden group bg-neutral-900 border border-white/10 shadow-md">
-                <img alt="Key Frame" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/keyframe2.png" />
+                <img alt="Key Frame" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/keyframe2.png" loading="lazy" decoding="async" />
               </div>
               <div className="relative h-16 sm:h-28 w-full shrink-0 rounded-xl sm:rounded-2xl overflow-hidden group bg-neutral-900 border border-white/10 shadow-md">
-                <img alt="Speed Panel" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/speed pannel.png" />
+                <img alt="Speed Panel" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/speed pannel.png" loading="lazy" decoding="async" />
               </div>
               <div className="relative h-28 sm:h-52 w-full shrink-0 rounded-xl sm:rounded-2xl overflow-hidden group bg-neutral-900 border border-white/10 shadow-md">
-                <img alt="Frame 27" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/basic.png" />
+                <img alt="Frame 27" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/basic.png" loading="lazy" decoding="async" />
               </div>
             </div>
 
             {/* Col 2 */}
-            <div className="flex flex-col gap-2 sm:gap-3">
+            <div className="flex flex-col gap-2 sm:gap-3 transform-gpu will-change-transform">
               <div className="relative h-44 sm:h-88 w-full shrink-0 rounded-xl sm:rounded-2xl overflow-hidden group bg-neutral-900 border border-white/10 shadow-md">
-                <img alt="Compound Clip" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/compound.png" />
+                <img alt="Compound Clip" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/compound.png" loading="lazy" decoding="async" />
               </div>
               <div className="relative h-24 sm:h-45 w-full shrink-0 rounded-xl sm:rounded-2xl overflow-hidden group bg-neutral-900 border border-white/10 shadow-md">
-                <img alt="Camera Moments" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/camera.png" />
+                <img alt="Camera Moments" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/camera.png" loading="lazy" decoding="async" />
               </div>
             </div>
 
             {/* Col 3 */}
-            <div className="flex flex-col gap-2 sm:gap-3">
+            <div className="flex flex-col gap-2 sm:gap-3 transform-gpu will-change-transform">
               <div className="relative h-24 sm:h-50 w-full shrink-0 rounded-xl sm:rounded-2xl overflow-hidden group bg-neutral-900 border border-white/10 shadow-md">
-                <img alt="Music" className="object-cover object-center transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/Frame 27.png" />
+                <img alt="Music" className="object-cover object-center transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/Frame 27.png" loading="lazy" decoding="async" />
               </div>
               <div className="relative h-44 sm:h-82 w-full shrink-0 rounded-xl sm:rounded-2xl overflow-hidden group bg-neutral-900 border border-white/10 shadow-md">
-                <img alt="Effects & Transitions" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/effect.png" />
+                <img alt="Effects & Transitions" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/effect.png" loading="lazy" decoding="async" />
               </div>
             </div>
 
             {/* Col 4 */}
-            <div className="flex flex-col gap-2 sm:gap-3">
+            <div className="flex flex-col gap-2 sm:gap-3 transform-gpu will-change-transform">
               <div className="relative h-44 sm:h-88 w-full shrink-0 rounded-xl sm:rounded-2xl overflow-hidden group bg-neutral-900 border border-white/10 shadow-md">
-                <img alt="Create your own Portfolio" className="object-cover object-top transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/protfolio.png" />
+                <img alt="Create your own Portfolio" className="object-cover object-top transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/protfolio.png" loading="lazy" decoding="async" />
               </div>
               <div className="relative h-24 sm:h-45 w-full shrink-0 rounded-xl sm:rounded-2xl overflow-hidden group bg-neutral-900 border border-white/10 shadow-md">
-                <img alt="How to get Clients" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/hot to get cliens.png" />
+                <img alt="How to get Clients" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/hot to get cliens.png" loading="lazy" decoding="async" />
               </div>
             </div>
 
             {/* Col 5 */}
-            <div className="flex flex-col gap-2 sm:gap-3">
+            <div className="flex flex-col gap-2 sm:gap-3 transform-gpu will-change-transform">
               <div className="relative h-24 sm:h-45 w-full shrink-0 rounded-xl sm:rounded-2xl overflow-hidden group bg-neutral-900 border border-white/10 shadow-md">
-                <img alt="How to Price Your Edit" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/mucis.png" />
+                <img alt="How to Price Your Edit" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/mucis.png" loading="lazy" decoding="async" />
               </div>
               <div className="relative h-44 sm:h-88 w-full shrink-0 rounded-xl sm:rounded-2xl overflow-hidden group bg-neutral-900 border border-white/10 shadow-md">
-                <img alt="Color Grading" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/color.png" />
+                <img alt="Color Grading" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/color.png" loading="lazy" decoding="async" />
               </div>
             </div>
 
             {/* Col 6 */}
-            <div className="flex flex-col gap-2 sm:gap-3">
+            <div className="flex flex-col gap-2 sm:gap-3 transform-gpu will-change-transform">
               <div className="relative h-44 sm:h-88 w-full shrink-0 rounded-xl sm:rounded-2xl overflow-hidden group bg-neutral-900 border border-white/10 shadow-md">
-                <img alt="Real time Client Projects" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/how to.png" />
+                <img alt="Real time Client Projects" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/how to.png" loading="lazy" decoding="async" />
               </div>
               <div className="relative h-24 sm:h-45 w-full shrink-0 rounded-xl sm:rounded-2xl overflow-hidden group bg-neutral-900 border border-white/10 shadow-md">
-                <img alt="Real time Client Projects" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/realtime.png" />
+                <img alt="Real time Client Projects" className="object-cover object-bottom transition-transform duration-500 group-hover:scale-105 w-full h-full" src="/main/1/footer/realtime.png" loading="lazy" decoding="async" />
               </div>
             </div>
 

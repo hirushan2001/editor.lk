@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import Lenis from 'lenis';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import WhatYouLearn from './components/WhatYouLearn';
@@ -10,6 +12,8 @@ import TestimonialsSection from './components/TestimonialsSection';
 import FaqSection from './components/FaqSection';
 import CurriculumMontage from './components/CurriculumMontage';
 import FooterSection from './components/FooterSection';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   useEffect(() => {
@@ -24,12 +28,15 @@ export default function App() {
       touchMultiplier: 1.5,
     });
 
-    let rafId;
-    function raf(time) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
+    // Synchronize Lenis with GSAP ScrollTrigger
+    lenis.on('scroll', ScrollTrigger.update);
+
+    const updateGsapTicker = (time) => {
+      lenis.raf(time * 1000);
+    };
+
+    gsap.ticker.add(updateGsapTicker);
+    gsap.ticker.lagSmoothing(0);
 
     // Scroll reveal observer
     const observerCallback = (entries) => {
@@ -50,7 +57,7 @@ export default function App() {
     elements.forEach((el) => observer.observe(el));
 
     return () => {
-      cancelAnimationFrame(rafId);
+      gsap.ticker.remove(updateGsapTicker);
       lenis.destroy();
       observer.disconnect();
     };

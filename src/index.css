@@ -7,7 +7,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto !important;
 }
 
 /* Lenis Smooth Scroll Engine Rules */
@@ -17,6 +17,17 @@ html.lenis, html.lenis body {
 
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
+}
+
+/* GPU Hardware Acceleration Utilities for Smooth 60fps Scrolling */
+.transform-gpu {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.will-change-transform {
+  will-change: transform, opacity;
 }
 
 .lenis.lenis-smooth [data-lenis-prevent] {

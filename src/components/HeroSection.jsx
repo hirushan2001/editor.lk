@@ -64,11 +64,12 @@ export default function HeroSection() {
           yPercent: -12,
           autoAlpha: 0.65,
           ease: "none",
+          force3D: true,
           scrollTrigger: {
             trigger: heroRef.current,
             start: "top top",
             end: "bottom top",
-            scrub: true,
+            scrub: 0.3,
             refreshPriority: 10
           }
         });
