@@ -7,30 +7,97 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function CurriculumMontage() {
   const containerRef = useRef(null);
+  const contentRef = useRef(null);
+  const gridRef = useRef(null);
 
   useGSAP(() => {
+    // 1. Fixed Curtain Reveal animation (scale + opacity scrub as white FAQ container lifts)
     if (containerRef.current) {
       gsap.fromTo(
         containerRef.current,
-        { y: 60, opacity: 0 },
         {
-          y: 0,
+          scale: 0.96,
+          opacity: 0.4,
+          transformOrigin: "top center"
+        },
+        {
+          scale: 1,
           opacity: 1,
-          duration: 1,
-          ease: "power2.out",
+          ease: "none",
           scrollTrigger: {
             trigger: containerRef.current,
-            start: "top 85%",
-            end: "top 40%",
+            start: "top 95%",
+            end: "top 35%",
             scrub: 1
           }
         }
       );
     }
+
+    // 2. Header text entrance animation
+    if (contentRef.current) {
+      const elements = contentRef.current.children;
+      gsap.fromTo(
+        elements,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: contentRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    // 3. Grid Columns Stagger & Parallax Scroll animation
+    if (gridRef.current) {
+      const columns = gridRef.current.children;
+      
+      // Initial staggered entrance
+      gsap.fromTo(
+        columns,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: gridRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+
+      // Subtle parallax shift between odd and even columns on scroll
+      Array.from(columns).forEach((col, index) => {
+        const speed = index % 2 === 0 ? -15 : 15;
+        gsap.to(col, {
+          y: speed,
+          ease: "none",
+          scrollTrigger: {
+            trigger: gridRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1
+          }
+        });
+      });
+    }
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef} className="relative w-full py-16 bg-[#08080A]">
+    <div ref={containerRef} className="relative w-full py-12 sm:py-16 bg-[#08080A] overflow-hidden">
+      
+      {/* Header Banner Block */}
       <div className="relative w-full overflow-hidden bg-neutral-950 flex flex-col items-center justify-center border-b border-white/5 min-h-[360px] sm:min-h-[440px]">
         
         {/* Background Montage banner */}
@@ -44,7 +111,7 @@ export default function CurriculumMontage() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#0C0C0C] via-black/40 to-[#0C0C0C] pointer-events-none"></div>
 
         {/* Text Foreground */}
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center space-y-4">
+        <div ref={contentRef} className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center space-y-4">
           <h2 className="text-4xl sm:text-5xl font-black text-white tracking-tight drop-shadow-2xl">
             All You’ll Learn Here.
           </h2>
@@ -70,7 +137,7 @@ export default function CurriculumMontage() {
       {/* Grid of UI montage feature cards */}
       <div className="relative w-full bg-[#08080A] pt-6 pb-4 sm:pt-8 sm:pb-6">
         <div className="w-full max-w-[1660px] mx-auto px-2 sm:px-6">
-          <div className="grid grid-cols-3 lg:grid-cols-6 gap-1.5 sm:gap-3.5 w-full items-start">
+          <div ref={gridRef} className="grid grid-cols-3 lg:grid-cols-6 gap-1.5 sm:gap-3.5 w-full items-start">
             
             {/* Col 1 */}
             <div className="flex flex-col gap-2 sm:gap-3">
@@ -141,4 +208,5 @@ export default function CurriculumMontage() {
     </div>
   );
 }
+
 
