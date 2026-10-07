@@ -92,7 +92,7 @@ export default function RealProjectsSection() {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} id="projects" className="relative w-full pt-6 sm:pt-10 pb-16 sm:pb-20 bg-white text-neutral-900 rounded-b-4xl">
+    <section ref={sectionRef} id="projects" className="relative w-full pt-6 sm:pt-10 pb-16 sm:pb-20 bg-white text-neutral-900 force-rounded-b rounded-b-[40px] sm:rounded-b-[56px] overflow-hidden">
       <div className="max-w-340 2xl:max-w-408 mx-auto px-4 sm:px-6 lg:px-8 text-center mb-6 sm:mb-14">
         <p className="text-xs sm:text-lg text-[#4B5563] tracking-normal sm:tracking-wide font-normal mb-1.5 sm:mb-0">
           The Ultimate Space to Perfect Your Editing Skills.

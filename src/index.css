@@ -106,14 +106,31 @@ body {
 .font-montserrat { font-family: 'Montserrat', sans-serif; }
 .font-manrope { font-family: 'Manrope', sans-serif; }
 
-/* Rounded 4xl utility */
+/* Custom Card Radius matching Original Site */
+.force-rounded-t,
 .rounded-t-4xl {
-  border-top-left-radius: 2.25rem;
-  border-top-right-radius: 2.25rem;
+  border-top-left-radius: 40px !important;
+  border-top-right-radius: 40px !important;
 }
+
+.force-rounded-b,
 .rounded-b-4xl {
-  border-bottom-left-radius: 2.25rem;
-  border-bottom-right-radius: 2.25rem;
+  border-bottom-left-radius: 40px !important;
+  border-bottom-right-radius: 40px !important;
+}
+
+@media (min-width: 640px) {
+  .force-rounded-t,
+  .rounded-t-4xl {
+    border-top-left-radius: 56px !important;
+    border-top-right-radius: 56px !important;
+  }
+
+  .force-rounded-b,
+  .rounded-b-4xl {
+    border-bottom-left-radius: 56px !important;
+    border-bottom-right-radius: 56px !important;
+  }
 }
 
 /* Hero Text Animation */

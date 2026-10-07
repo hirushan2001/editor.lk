@@ -33,7 +33,7 @@ export default function ComparisonSection() {
   }, { scope: sectionRef });
 
   return (
-    <div ref={sectionRef} id="comparison" className="w-full py-16 sm:py-18 bg-transparent text-neutral-900 overflow-hidden select-none">
+    <div ref={sectionRef} id="comparison" className="w-full py-16 sm:py-18 bg-transparent text-neutral-900 overflow-hidden select-none force-rounded-t rounded-t-[40px] sm:rounded-t-[56px]">
       <div className="comparison-parallax-container max-w-340 2xl:max-w-408 mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         
         <div className="text-center space-y-3 sm:space-y-5">

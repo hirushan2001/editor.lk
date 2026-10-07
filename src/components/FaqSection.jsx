@@ -60,7 +60,7 @@ export default function FaqSection() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} id="faq" className="w-full select-none py-12 sm:py-20 bg-white text-neutral-900 overflow-hidden rounded-b-4xl sm:rounded-b-none">
+    <section ref={containerRef} id="faq" className="w-full select-none py-12 sm:py-20 bg-white text-neutral-900 overflow-hidden force-rounded-b rounded-b-[40px] sm:rounded-b-[56px]">
       <div className="max-w-340 2xl:max-w-408 mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-16">
         
         {/* Header */}

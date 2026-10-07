@@ -128,10 +128,43 @@ export default function HeroSection() {
   }, { scope: heroRef });
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveTab(prev => (prev + 1) % HERO_DATA.length);
-    }, 5000);
-    return () => clearInterval(timer);
+    let timer = null;
+
+    const startTimer = () => {
+      if (!timer) {
+        timer = setInterval(() => {
+          if (window.scrollY < 150) {
+            setActiveTab(prev => (prev + 1) % HERO_DATA.length);
+          }
+        }, 5000);
+      }
+    };
+
+    const stopTimer = () => {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    };
+
+    const handleScroll = () => {
+      if (window.scrollY > 150) {
+        stopTimer();
+      } else {
+        startTimer();
+      }
+    };
+
+    if (window.scrollY < 150) {
+      startTimer();
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      stopTimer();
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const activeMod = HERO_DATA[activeTab];

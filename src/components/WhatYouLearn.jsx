@@ -199,7 +199,7 @@ export default function WhatYouLearn() {
       <div id="features">
         <section
           ref={sectionRef}
-          className="relative w-full lg:min-h-screen pt-6 sm:pt-24 pb-8 sm:pb-16 px-4 sm:px-6 lg:px-8 bg-white text-neutral-900 rounded-t-4xl overflow-visible lg:overflow-hidden select-none"
+          className="relative w-full lg:min-h-screen pt-6 sm:pt-24 pb-8 sm:pb-16 px-4 sm:px-6 lg:px-8 bg-white text-neutral-900 force-rounded-t rounded-t-[40px] sm:rounded-t-[56px] overflow-visible lg:overflow-hidden select-none"
         >
           <div className="max-w-[1440px] mx-auto flex flex-col items-center">
             

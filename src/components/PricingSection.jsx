@@ -122,7 +122,7 @@ export default function PricingSection() {
   }, []);
 
   return (
-    <div className="relative z-10 w-full bg-neutral-950 -mt-10 pt-10" id="pricing">
+    <div className="relative z-10 w-full bg-neutral-950 pt-6 sm:pt-10" id="pricing">
       <div id="enroll">
         <section ref={sectionRef} className="relative z-10 w-full pt-16 sm:pt-20 pb-20 bg-neutral-950 text-white overflow-hidden">
           <div ref={parallaxRef} className="pricing-parallax-container max-w-340 2xl:max-w-408 mx-auto px-0 sm:px-6 lg:px-8 space-y-6 sm:space-y-8 will-change-transform transform-gpu">
