@@ -61,8 +61,7 @@ export default function HeroSection() {
     mm.add("(min-width: 640px)", () => {
       if (heroRef.current) {
         gsap.to(heroRef.current, {
-          yPercent: -12,
-          autoAlpha: 0.65,
+          yPercent: -10,
           ease: "none",
           force3D: true,
           scrollTrigger: {
@@ -71,56 +70,6 @@ export default function HeroSection() {
             end: "bottom top",
             scrub: 0.3,
             refreshPriority: 10
-          }
-        });
-
-        ScrollTrigger.create({
-          trigger: heroRef.current,
-          start: "bottom top",
-          onEnter: () => {
-            const home = document.getElementById("home");
-            if (home) gsap.set(home, { zIndex: 0, autoAlpha: 0 });
-          },
-          onLeaveBack: () => {
-            const home = document.getElementById("home");
-            if (home) gsap.set(home, { zIndex: 10, autoAlpha: 1 });
-          },
-          onRefresh: (self) => {
-            const home = document.getElementById("home");
-            if (home) {
-              if (self.scroll() > self.start) {
-                gsap.set(home, { zIndex: 0, autoAlpha: 0 });
-              } else {
-                gsap.set(home, { zIndex: 10, autoAlpha: 1 });
-              }
-            }
-          }
-        });
-      }
-    });
-
-    mm.add("(max-width: 639px)", () => {
-      if (heroRef.current) {
-        ScrollTrigger.create({
-          trigger: heroRef.current,
-          start: "bottom top",
-          onEnter: () => {
-            const home = document.getElementById("home");
-            if (home) gsap.set(home, { zIndex: 0, autoAlpha: 0 });
-          },
-          onLeaveBack: () => {
-            const home = document.getElementById("home");
-            if (home) gsap.set(home, { zIndex: 10, autoAlpha: 1 });
-          },
-          onRefresh: (self) => {
-            const home = document.getElementById("home");
-            if (home) {
-              if (self.scroll() > self.start) {
-                gsap.set(home, { zIndex: 0, autoAlpha: 0 });
-              } else {
-                gsap.set(home, { zIndex: 10, autoAlpha: 1 });
-              }
-            }
           }
         });
       }

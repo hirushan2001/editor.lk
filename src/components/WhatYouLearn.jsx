@@ -60,30 +60,29 @@ export default function WhatYouLearn() {
 
     // Desktop GSAP Animations
     mm.add("(min-width: 1024px)", () => {
-      // Initialize flex-grow values for accordion cards
+      // Initialize flex-grow values for accordion cards and promote to GPU
       const cards = gsap.utils.toArray(".accordion-card");
       cards.forEach((card, idx) => {
-        gsap.set(card, { flexGrow: idx === 0 ? 2.5 : 1 });
+        gsap.set(card, { flexGrow: idx === 0 ? 2.5 : 1, force3D: true });
       });
 
-      // Entry animation on scroll
+      // Entry animation on scroll (hardware-accelerated smooth 60fps entrance)
       if (desktopContainerRef.current) {
         gsap.fromTo(
           ".accordion-card",
-          { y: 100, x: 450, scale: 0.95, opacity: 0 },
+          { y: 45, opacity: 0 },
           {
             y: 0,
-            x: 0,
-            scale: 1,
             opacity: 1,
-            duration: 1,
-            ease: "power3.out",
+            duration: 0.7,
+            stagger: 0.08,
+            ease: "power2.out",
             force3D: true,
+            clearProps: "transform",
             scrollTrigger: {
               trigger: desktopContainerRef.current,
-              start: "top 70%",
-              end: "top 15%",
-              scrub: 0.3
+              start: "top 80%",
+              toggleActions: "play none none reverse"
             }
           }
         );
@@ -248,6 +247,8 @@ export default function WhatYouLearn() {
                       <img
                         alt={card.title}
                         src={card.image}
+                        loading="eager"
+                        decoding="async"
                         className="object-cover object-center w-full h-full"
                       />
                     </div>
@@ -273,7 +274,7 @@ export default function WhatYouLearn() {
                     key={card.id}
                     onMouseEnter={() => handleSelectCard(index)}
                     onClick={() => handleSelectCard(index)}
-                    className={`accordion-card flex-1 min-w-0 relative rounded-3xl overflow-hidden cursor-pointer flex flex-col justify-between transition-colors duration-500 ${
+                    className={`accordion-card transform-gpu will-change-transform flex-1 min-w-0 relative rounded-3xl overflow-hidden cursor-pointer flex flex-col justify-between transition-colors duration-500 ${
                       isActive
                         ? 'bg-black text-white shadow-2xl shadow-black/50 border border-neutral-800'
                         : 'bg-[#F3F3F5] hover:bg-[#E8E8EC] text-neutral-900 border border-neutral-200/80'
@@ -300,8 +301,10 @@ export default function WhatYouLearn() {
                       <img
                         alt={card.title}
                         src={card.image}
-                        className={`object-cover w-full h-full transition-transform duration-700 ${
-                          isActive ? 'scale-105' : 'scale-100 filter brightness-95'
+                        loading="eager"
+                        decoding="async"
+                        className={`object-cover w-full h-full transition-all duration-700 ${
+                          isActive ? 'scale-105 opacity-100' : 'scale-100 opacity-90'
                         }`}
                       />
                     </div>
