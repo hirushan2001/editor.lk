@@ -6,19 +6,19 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const CAROUSEL_CARDS = [
-  { id: 0, title: "Take Yours Editorial Edit", src: "/main/1/hero/web/Funde-bg.png" },
-  { id: 1, title: "Creative Visual Color Edit", src: "/main/1/what-u-learn/master-of-funde.png" },
-  { id: 2, title: "High Speed Motion Blur", src: "/main/1/real-projects/motion.png" },
-  { id: 3, title: "Surreal Graphic Portrait", src: "/main/1/footer/camera.png" },
-  { id: 4, title: "Cinematic Lighting & Color", src: "/main/1/footer/color.png" },
-  { id: 5, title: "Build Your Future Neon Edit", src: "/main/1/footer/effect.png" },
-  { id: 6, title: "Vibrant Color Grading", src: "/main/1/hero/web/color-grad-new.png" },
-  { id: 7, title: "Dynamic Perspective 3D", src: "/main/1/what-u-learn/master-of-color.png" },
-  { id: 8, title: "Creative Composite Art", src: "/main/1/real-projects/before-after.png" },
+  { id: 0, title: "Green PSP Editorial Edit", src: "/main/2/hero/03d06ee7f7ebf4413bc6fc5b8c6aaf6e.jpg.jpeg" },
+  { id: 1, title: "Tennis Ball Head Edit", src: "/main/2/hero/176c1f1e4ead917c6f7c73bdc99527fb.jpg.jpeg" },
+  { id: 2, title: "Red Lighting Woman Edit", src: "/main/2/hero/e14557eb7cb892a7cafd42165de721fb.jpg.jpeg" },
+  { id: 3, title: "Build Your Future VR Edit", src: "/main/2/hero/434d852c4f47767d82a96a99e501c917.jpg.jpeg" },
+  { id: 4, title: "High Speed Motion Blur", src: "/main/2/hero/ae1f104c5bfee9025a9035f3a9d49447.jpg.jpeg" },
+  { id: 5, title: "Cinematic Lighting & Color", src: "/main/2/hero/282f9ac0a1f1f98969da9a7613156af7.jpg.jpeg" },
+  { id: 6, title: "Surreal Graphic Portrait", src: "/main/2/hero/49cfcca5b7d42f4041e4d8a394f4b8c5.jpg.jpeg" },
+  { id: 7, title: "Dynamic Perspective 3D", src: "/main/2/hero/f69490e74d73c09216092bfcf7b1897e.jpg.jpeg" },
+  { id: 8, title: "Creative Composite Art", src: "/main/2/hero/fdccef552fe4a305d5aa734bdf3d1b27.jpg.jpeg" },
 ];
 
 export default function EditingFundamentalsPage() {
-  const [activeIndex, setActiveIndex] = useState(4);
+  const [activeIndex, setActiveIndex] = useState(3);
   const [screenCategory, setScreenCategory] = useState("desktop");
   const heroRef = useRef(null);
 
@@ -35,6 +35,7 @@ export default function EditingFundamentalsPage() {
     window.addEventListener("resize", handleResize);
 
     const ctx = gsap.context(() => {
+      // 1. Hero Load Entrance
       gsap.fromTo(
         ".hero-text-item",
         { y: 35, opacity: 0 },
@@ -50,6 +51,173 @@ export default function EditingFundamentalsPage() {
         { opacity: 0, y: 15 },
         { opacity: 1, y: 0, duration: 0.6, delay: 0.55, ease: "power2.out" }
       );
+
+      // 2. Hero Parallax Fade on Scroll
+      gsap.to("#home-content", {
+        scrollTrigger: {
+          trigger: "#home",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+        y: -60,
+        opacity: 0.35,
+        scale: 0.95,
+      });
+
+      // 3. Feature Section Header & Desktop Feature Cards Reveal
+      gsap.fromTo(
+        ".feature-header-item",
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: "#features",
+            start: "top 80%",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".feature-card",
+        { y: 50, opacity: 0, scale: 0.96 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.85,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".feature-card-grid",
+            start: "top 85%",
+          },
+        }
+      );
+
+      // 4. Core Skills Section Reveal
+      gsap.fromTo(
+        ".core-skills-img",
+        { x: -40, opacity: 0, scale: 0.96 },
+        {
+          x: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: "#core-skills",
+            start: "top 80%",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".core-skill-item",
+        { x: 35, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.08,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".core-skill-list",
+            start: "top 85%",
+          },
+        }
+      );
+
+      // 5. Fundamentals Pillars (Practice, Observe, Experiment, Stay consistent)
+      gsap.fromTo(
+        ".pillar-card",
+        { y: 40, opacity: 0, scale: 0.95 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.75,
+          stagger: 0.1,
+          ease: "back.out(1.2)",
+          scrollTrigger: {
+            trigger: ".pillar-grid",
+            start: "top 85%",
+          },
+        }
+      );
+
+      // 6. Showcase Videos ("You'll create simple edits like this!")
+      gsap.fromTo(
+        ".showcase-card",
+        { y: 50, opacity: 0, scale: 0.95 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".showcase-grid",
+            start: "top 80%",
+          },
+        }
+      );
+
+      // 7. Comparison Table Reveal
+      gsap.fromTo(
+        ".comparison-header",
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".comparison-parallax-container",
+            start: "top 80%",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".comparison-row",
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.65,
+          stagger: 0.08,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".comparison-table-container",
+            start: "top 85%",
+          },
+        }
+      );
+
+      // 8. Module Cards ("Explore More Course Modules")
+      gsap.fromTo(
+        ".module-card",
+        { y: 40, opacity: 0, scale: 0.97 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".module-grid",
+            start: "top 85%",
+          },
+        }
+      );
     }, heroRef);
 
     return () => {
@@ -59,57 +227,61 @@ export default function EditingFundamentalsPage() {
   }, []);
 
   const getCardStyle = (index) => {
-    const diff = index - activeIndex;
+    const total = CAROUSEL_CARDS.length;
+    let diff = index - activeIndex;
+
+    // Circular wrap-around calculation so the arc is ALWAYS perfectly centered
+    if (diff > Math.floor(total / 2)) {
+      diff -= total;
+    } else if (diff < -Math.floor(total / 2)) {
+      diff += total;
+    }
+
     const absDiff = Math.abs(diff);
 
     let spacing = 135;
-    let maxVisible = 4;
-    let baseScale = 1.05;
+    let maxVisible = 3;
+    let baseScale = 1.15;
+    let dropFactor = 22;
 
     if (screenCategory === "mobile") {
-      spacing = 65;
+      spacing = 58;
       maxVisible = 2;
-      baseScale = 0.9;
+      baseScale = 0.95;
+      dropFactor = 14;
     } else if (screenCategory === "tablet") {
-      spacing = 100;
+      spacing = 95;
       maxVisible = 3;
-      baseScale = 0.98;
+      baseScale = 1.05;
+      dropFactor = 18;
     }
 
     if (absDiff > maxVisible + 1) {
       return {
         opacity: 0,
         pointerEvents: "none",
-        transform: `translate3d(${diff * spacing}px, 120px, -400px) scale(0.3)`,
+        transform: `translate3d(${diff * spacing}px, 250px, -400px) scale(0.3)`,
         zIndex: 0,
       };
     }
 
     const translateX = diff * spacing;
-    const translateY = Math.pow(absDiff, 1.55) * (screenCategory === "mobile" ? 6 : 10);
-    const translateZ = diff === 0 ? 120 : -absDiff * (screenCategory === "mobile" ? 45 : 70);
-    const rotateY = -diff * (screenCategory === "mobile" ? 16 : 22);
-    const rotateZ = -diff * (screenCategory === "mobile" ? 2.5 : 3.8);
-    const scale = diff === 0 ? baseScale : Math.max(0.45, baseScale - absDiff * (screenCategory === "mobile" ? 0.12 : 0.08));
-    const zIndex = 50 - absDiff * 5;
-    const opacity = absDiff > maxVisible ? 0 : absDiff === maxVisible ? 0.4 : 1 - absDiff * 0.08;
-    const brightness = diff === 0 ? 1.1 : Math.max(0.5, 0.95 - absDiff * 0.12);
+    const translateY = Math.pow(absDiff, 1.62) * dropFactor;
+    const translateZ = diff === 0 ? 140 : 100 - absDiff * 45;
+    const rotateY = -diff * (screenCategory === "mobile" ? 12 : 15);
+    const rotateZ = -diff * (screenCategory === "mobile" ? 4.5 : 7.2);
+    const scale = diff === 0 ? baseScale : Math.max(0.6, (screenCategory === "mobile" ? 0.9 : 1.04) - absDiff * 0.08);
+    const zIndex = diff === 0 ? 50 : 40 - absDiff * 5;
+    const opacity = absDiff > maxVisible ? 0 : 1 - absDiff * 0.03;
+    const brightness = diff === 0 ? 1.1 : Math.max(0.7, 1.0 - absDiff * 0.06);
 
     return {
       transform: `translate3d(${translateX}px, ${translateY}px, ${translateZ}px) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`,
       zIndex,
       opacity,
-      filter: `brightness(${brightness}) ${diff === 0 ? "drop-shadow(0 25px 35px rgba(0,0,0,0.8))" : "drop-shadow(0 12px 24px rgba(0,0,0,0.6))"}`,
-      transition: "transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, filter 0.6s ease",
+      filter: `brightness(${brightness}) ${diff === 0 ? "drop-shadow(0 30px 45px rgba(0,0,0,0.85))" : "drop-shadow(0 15px 25px rgba(0,0,0,0.65))"}`,
+      transition: "transform 0.65s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.65s ease, filter 0.65s ease",
     };
-  };
-
-  const nextCard = () => {
-    setActiveIndex((prev) => (prev + 1) % CAROUSEL_CARDS.length);
-  };
-
-  const prevCard = () => {
-    setActiveIndex((prev) => (prev - 1 + CAROUSEL_CARDS.length) % CAROUSEL_CARDS.length);
   };
 
   return (
@@ -123,10 +295,10 @@ export default function EditingFundamentalsPage() {
             className="absolute inset-0 z-0 pointer-events-none"
             style={{
               background:
-                "linear-gradient(180deg, #000000 0%, #000000 20%, #000000 40%, #555555 78%, #FFFFFF 100%)",
+                "radial-gradient(ellipse 90% 65% at 50% 85%, #353539 0%, #121215 55%, #000000 100%)",
             }}
           ></div>
-          <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grow flex flex-col items-center justify-center gap-3 sm:gap-6 my-auto pt-0 sm:pt-2 pb-4">
+          <div id="home-content" className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grow flex flex-col items-center justify-center gap-3 sm:gap-6 my-auto pt-0 sm:pt-2 pb-4">
             <div className="w-full max-w-4xl text-center space-y-2 sm:space-y-3">
               <h1 className="hero-text-item opacity-0 text-3xl sm:text-5xl md:text-6xl font-bold sm:font-semibold tracking-tight leading-[1.15] sm:leading-[1.1] text-white">
                 Editing fundamentals <br className="block sm:hidden" /> in
@@ -141,22 +313,11 @@ export default function EditingFundamentalsPage() {
                 editing techniques.
               </p>
             </div>
-            <div className="relative w-full max-w-6xl mt-6 sm:mt-6 flex flex-col items-center justify-center shrink">
+            <div className="relative w-full max-w-6xl mt-4 sm:mt-6 flex flex-col items-center justify-center shrink">
               <div
-                className="hero-carousel-box opacity-0 relative w-full h-[310px] xs:h-[340px] sm:h-[370px] md:h-[400px] lg:h-[430px] flex items-center justify-center"
+                className="hero-carousel-box opacity-0 relative w-full h-[320px] xs:h-[350px] sm:h-[390px] md:h-[420px] lg:h-[450px] flex items-center justify-center"
                 style={{ perspective: "1200px" }}
               >
-                {/* Carousel Left Arrow */}
-                <button
-                  onClick={prevCard}
-                  aria-label="Previous card"
-                  className="absolute left-2 sm:left-6 z-50 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/20 transition-transform active:scale-90"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-
                 {CAROUSEL_CARDS.map((card, index) => {
                   const style = getCardStyle(index);
                   return (
@@ -181,17 +342,6 @@ export default function EditingFundamentalsPage() {
                     </div>
                   );
                 })}
-
-                {/* Carousel Right Arrow */}
-                <button
-                  onClick={nextCard}
-                  aria-label="Next card"
-                  className="absolute right-2 sm:right-6 z-50 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/20 transition-transform active:scale-90"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
               </div>
             </div>
           </div>
@@ -230,13 +380,13 @@ export default function EditingFundamentalsPage() {
             </div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
               <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-16 space-y-1.5 sm:space-y-2">
-                <h2 className="text-2xl sm:text-4xl md:text-5xl font-normal text-neutral-900 tracking-tight leading-tight">
+                <h2 className="feature-header-item opacity-0 text-2xl sm:text-4xl md:text-5xl font-normal text-neutral-900 tracking-tight leading-tight">
                   What you'll learn in
                 </h2>
-                <h3 className="text-3xl sm:text-5xl md:text-6xl font-bold text-neutral-950 tracking-tight leading-none">
+                <h3 className="feature-header-item opacity-0 text-3xl sm:text-5xl md:text-6xl font-bold text-neutral-950 tracking-tight leading-none">
                   Editing fundamentals
                 </h3>
-                <p className="text-xs sm:text-sm md:text-base text-gray-400 font-medium leading-relaxed pt-1.5 max-w-md sm:max-w-none mx-auto">
+                <p className="feature-header-item opacity-0 text-xs sm:text-sm md:text-base text-gray-400 font-medium leading-relaxed pt-1.5 max-w-md sm:max-w-none mx-auto">
                   Master the Core Skills and Build a Strong Foundation for
                   Professional Editing.
                 </p>
@@ -269,8 +419,8 @@ export default function EditingFundamentalsPage() {
                           color: "transparent",
                         }}
                         sizes="(max-width: 640px) 340px, 384px"
-                        srcSet="/main/1/what-u-learn/master-of-funde.png"
-                        src="/main/1/what-u-learn/master-of-funde.png"
+                        srcSet="/main/2/what-you-will-learn/understand-basics.png"
+                        src="/main/2/what-you-will-learn/understand-basics.png"
                       />
                     </div>
                     <div className="p-5 bg-black border-t border-white/10 shrink-0 space-y-1.5">
@@ -310,8 +460,8 @@ export default function EditingFundamentalsPage() {
                           color: "transparent",
                         }}
                         sizes="(max-width: 640px) 340px, 384px"
-                        srcSet="/main/1/hero/web/Funde-bg.png"
-                        src="/main/1/hero/web/Funde-bg.png"
+                        srcSet="/main/2/what-you-will-learn/capcut.png"
+                        src="/main/2/what-you-will-learn/capcut.png"
                       />
                     </div>
                     <div className="p-5 bg-black border-t border-white/10 shrink-0 space-y-1.5">
@@ -351,8 +501,8 @@ export default function EditingFundamentalsPage() {
                           color: "transparent",
                         }}
                         sizes="(max-width: 640px) 340px, 384px"
-                        srcSet="/main/1/footer/basic.png"
-                        src="/main/1/footer/basic.png"
+                        srcSet="/main/2/what-you-will-learn/import-and-organize.png"
+                        src="/main/2/what-you-will-learn/import-and-organize.png"
                       />
                     </div>
                     <div className="p-5 bg-black border-t border-white/10 shrink-0 space-y-1.5">
@@ -392,8 +542,8 @@ export default function EditingFundamentalsPage() {
                           color: "transparent",
                         }}
                         sizes="(max-width: 640px) 340px, 384px"
-                        srcSet="/main/1/what-you-will-learn/timeline-basics.png"
-                        src="/main/1/what-you-will-learn/timeline-basics.png"
+                        srcSet="/main/2/what-you-will-learn/timeline-basics.png"
+                        src="/main/2/what-you-will-learn/timeline-basics.png"
                       />
                     </div>
                     <div className="p-5 bg-black border-t border-white/10 shrink-0 space-y-1.5">
@@ -433,8 +583,8 @@ export default function EditingFundamentalsPage() {
                           color: "transparent",
                         }}
                         sizes="(max-width: 640px) 340px, 384px"
-                        srcSet="/main/1/what-you-will-learn/basic-editing.png"
-                        src="/main/1/what-you-will-learn/basic-editing.png"
+                        srcSet="/main/2/what-you-will-learn/basic-editing.png"
+                        src="/main/2/what-you-will-learn/basic-editing.png"
                       />
                     </div>
                     <div className="p-5 bg-black border-t border-white/10 shrink-0 space-y-1.5">
@@ -449,7 +599,7 @@ export default function EditingFundamentalsPage() {
                   </div>
                 </div>
               </div>
-              <div className="hidden lg:grid grid-cols-5 gap-5 sm:gap-6 w-full">
+              <div className="feature-card-grid hidden lg:grid grid-cols-5 gap-5 sm:gap-6 w-full">
                 <div className="feature-card flex flex-col space-y-3 group cursor-pointer">
                   <div className="relative w-full aspect-[4/4.2] rounded-2xl sm:rounded-3xl overflow-hidden bg-black shadow-md transition-transform duration-300 group-hover:-translate-y-1.5">
                     <img
@@ -469,8 +619,8 @@ export default function EditingFundamentalsPage() {
                         color: "transparent",
                       }}
                       sizes="20vw"
-                      srcSet="/main/1/what-u-learn/master-of-funde.png"
-                      src="/main/1/what-u-learn/master-of-funde.png"
+                      srcSet="/main/2/what-you-will-learn/understand-basics.png"
+                      src="/main/2/what-you-will-learn/understand-basics.png"
                     />
                   </div>
                   <div className="space-y-1 px-1">
@@ -502,8 +652,8 @@ export default function EditingFundamentalsPage() {
                         color: "transparent",
                       }}
                       sizes="20vw"
-                      srcSet="/main/1/hero/web/Funde-bg.png"
-                      src="/main/1/hero/web/Funde-bg.png"
+                      srcSet="/main/2/what-you-will-learn/capcut.png"
+                      src="/main/2/what-you-will-learn/capcut.png"
                     />
                   </div>
                   <div className="space-y-1 px-1">
@@ -535,8 +685,8 @@ export default function EditingFundamentalsPage() {
                         color: "transparent",
                       }}
                       sizes="20vw"
-                      srcSet="/main/1/footer/basic.png"
-                      src="/main/1/footer/basic.png"
+                      srcSet="/main/2/what-you-will-learn/import-and-organize.png"
+                      src="/main/2/what-you-will-learn/import-and-organize.png"
                     />
                   </div>
                   <div className="space-y-1 px-1">
@@ -568,8 +718,8 @@ export default function EditingFundamentalsPage() {
                         color: "transparent",
                       }}
                       sizes="20vw"
-                      srcSet="/main/1/what-you-will-learn/timeline-basics.png"
-                      src="/main/1/what-you-will-learn/timeline-basics.png"
+                      srcSet="/main/2/what-you-will-learn/timeline-basics.png"
+                      src="/main/2/what-you-will-learn/timeline-basics.png"
                     />
                   </div>
                   <div className="space-y-1 px-1">
@@ -601,8 +751,8 @@ export default function EditingFundamentalsPage() {
                         color: "transparent",
                       }}
                       sizes="20vw"
-                      srcSet="/main/1/what-you-will-learn/basic-editing.png"
-                      src="/main/1/what-you-will-learn/basic-editing.png"
+                      srcSet="/main/2/what-you-will-learn/basic-editing.png"
+                      src="/main/2/what-you-will-learn/basic-editing.png"
                     />
                   </div>
                   <div className="space-y-1 px-1">
@@ -619,7 +769,7 @@ export default function EditingFundamentalsPage() {
             </div>
           </section>
         </div>
-        <section className="relative w-full bg-[#F2F6FC] text-neutral-900 py-10 sm:py-16 px-4 sm:px-6 lg:px-8 select-none">
+        <section id="core-skills" className="relative w-full bg-[#F2F6FC] text-neutral-900 py-10 sm:py-16 px-4 sm:px-6 lg:px-8 select-none">
           <div className="max-w-6xl mx-auto space-y-6 sm:space-y-10">
             <div className="block lg:hidden text-center space-y-2">
               <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-950 tracking-tight leading-tight">
@@ -642,7 +792,7 @@ export default function EditingFundamentalsPage() {
               </h3>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
-              <div className="lg:col-span-7 relative w-full aspect-[16/10] sm:aspect-[16/9.5] rounded-xl sm:rounded-2xl overflow-hidden bg-neutral-900 shadow-xl border border-neutral-200/50">
+              <div className="core-skills-img opacity-0 lg:col-span-7 relative w-full aspect-[16/10] sm:aspect-[16/9.5] rounded-xl sm:rounded-2xl overflow-hidden bg-neutral-900 shadow-xl border border-neutral-200/50">
                 <img
                   alt="CapCut Core Editing Interface"
                   decoding="async"
@@ -659,8 +809,8 @@ export default function EditingFundamentalsPage() {
                     color: "transparent",
                   }}
                   sizes="(max-width: 1024px) 100vw, 50vw"
-                  srcSet="/main/1/hero/web/Funde-bg.png"
-                  src="/main/1/hero/web/Funde-bg.png"
+                  srcSet="/main/2/side/step-by-step.png"
+                  src="/main/2/side/step-by-step.png"
                 />
               </div>
               <div className="lg:col-span-5 space-y-4 sm:space-y-6 pl-0 lg:pl-2">
@@ -668,8 +818,8 @@ export default function EditingFundamentalsPage() {
                   Build your foundation with <br />
                   the essential editing techniques.
                 </h4>
-                <ul className="grid grid-cols-2 lg:grid-cols-1 gap-y-3.5 gap-x-2 sm:gap-3">
-                  <li className="flex items-center gap-2 sm:gap-3 group">
+                <ul className="core-skill-list grid grid-cols-2 lg:grid-cols-1 gap-y-3.5 gap-x-2 sm:gap-3">
+                  <li className="core-skill-item opacity-0 flex items-center gap-2 sm:gap-3 group">
                     <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shrink-0 text-[#2563EB]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -691,7 +841,7 @@ export default function EditingFundamentalsPage() {
                       Cutting & Trimming clips
                     </span>
                   </li>
-                  <li className="flex items-center gap-2 sm:gap-3 group">
+                  <li className="core-skill-item opacity-0 flex items-center gap-2 sm:gap-3 group">
                     <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shrink-0 text-[#2563EB]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -713,7 +863,7 @@ export default function EditingFundamentalsPage() {
                       Splitting & Merging clips
                     </span>
                   </li>
-                  <li className="flex items-center gap-2 sm:gap-3 group">
+                  <li className="core-skill-item opacity-0 flex items-center gap-2 sm:gap-3 group">
                     <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shrink-0 text-[#2563EB]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -735,7 +885,7 @@ export default function EditingFundamentalsPage() {
                       Adding & Rearranging clips
                     </span>
                   </li>
-                  <li className="flex items-center gap-2 sm:gap-3 group">
+                  <li className="core-skill-item opacity-0 flex items-center gap-2 sm:gap-3 group">
                     <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shrink-0 text-[#2563EB]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -757,7 +907,7 @@ export default function EditingFundamentalsPage() {
                       Using transitions simply
                     </span>
                   </li>
-                  <li className="flex items-center gap-2 sm:gap-3 group">
+                  <li className="core-skill-item opacity-0 flex items-center gap-2 sm:gap-3 group">
                     <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shrink-0 text-[#2563EB]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -779,7 +929,7 @@ export default function EditingFundamentalsPage() {
                       Adjusting clip speed
                     </span>
                   </li>
-                  <li className="flex items-center gap-2 sm:gap-3 group">
+                  <li className="core-skill-item opacity-0 flex items-center gap-2 sm:gap-3 group">
                     <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shrink-0 text-[#2563EB]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -801,7 +951,7 @@ export default function EditingFundamentalsPage() {
                       Working with audio basic
                     </span>
                   </li>
-                  <li className="flex items-center gap-2 sm:gap-3 group">
+                  <li className="core-skill-item opacity-0 flex items-center gap-2 sm:gap-3 group">
                     <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shrink-0 text-[#2563EB]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -823,7 +973,7 @@ export default function EditingFundamentalsPage() {
                       Basic text & Effects
                     </span>
                   </li>
-                  <li className="flex items-center gap-2 sm:gap-3 group">
+                  <li className="core-skill-item opacity-0 flex items-center gap-2 sm:gap-3 group">
                     <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shrink-0 text-[#2563EB]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -856,8 +1006,8 @@ export default function EditingFundamentalsPage() {
               <h2 className="text-3xl sm:text-5xl font-bold text-neutral-950 tracking-tight">
                 Editing fundamentals
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-8 pt-2">
-                <div className="flex flex-col md:flex-row items-center gap-3 md:gap-3.5 p-4 md:p-1 rounded-2xl md:rounded-none bg-[#F4F5F7] md:bg-transparent text-center md:text-left">
+              <div className="pillar-grid grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-8 pt-2">
+                <div className="pillar-card opacity-0 flex flex-col md:flex-row items-center gap-3 md:gap-3.5 p-4 md:p-1 rounded-2xl md:rounded-none bg-[#F4F5F7] md:bg-transparent text-center md:text-left">
                   <div className="relative w-14 h-14 md:w-15 md:h-15 rounded-2xl bg-[#1D1E22] flex items-center justify-center shrink-0 shadow-sm overflow-hidden">
                     <img
                       alt="Practice"
@@ -876,8 +1026,8 @@ export default function EditingFundamentalsPage() {
                         color: "transparent",
                       }}
                       sizes="100vw"
-                      srcSet="/main/1/showcase/practice.png"
-                      src="/main/1/showcase/practice.png"
+                      srcSet="/main/2/showcase/practice.png"
+                      src="/main/2/showcase/practice.png"
                     />
                   </div>
                   <div className="space-y-1 md:space-y-0.5 min-w-0">
@@ -889,7 +1039,7 @@ export default function EditingFundamentalsPage() {
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-col md:flex-row items-center gap-3 md:gap-3.5 p-4 md:p-1 rounded-2xl md:rounded-none bg-[#F4F5F7] md:bg-transparent text-center md:text-left">
+                <div className="pillar-card opacity-0 flex flex-col md:flex-row items-center gap-3 md:gap-3.5 p-4 md:p-1 rounded-2xl md:rounded-none bg-[#F4F5F7] md:bg-transparent text-center md:text-left">
                   <div className="relative w-14 h-14 md:w-15 md:h-15 rounded-2xl bg-[#1D1E22] flex items-center justify-center shrink-0 shadow-sm overflow-hidden">
                     <img
                       alt="Observe"
@@ -908,8 +1058,8 @@ export default function EditingFundamentalsPage() {
                         color: "transparent",
                       }}
                       sizes="100vw"
-                      srcSet="/main/1/showcase/observe.png"
-                      src="/main/1/showcase/observe.png"
+                      srcSet="/main/2/showcase/observe.png"
+                      src="/main/2/showcase/observe.png"
                     />
                   </div>
                   <div className="space-y-1 md:space-y-0.5 min-w-0">
@@ -921,7 +1071,7 @@ export default function EditingFundamentalsPage() {
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-col md:flex-row items-center gap-3 md:gap-3.5 p-4 md:p-1 rounded-2xl md:rounded-none bg-[#F4F5F7] md:bg-transparent text-center md:text-left">
+                <div className="pillar-card opacity-0 flex flex-col md:flex-row items-center gap-3 md:gap-3.5 p-4 md:p-1 rounded-2xl md:rounded-none bg-[#F4F5F7] md:bg-transparent text-center md:text-left">
                   <div className="relative w-14 h-14 md:w-15 md:h-15 rounded-2xl bg-[#1D1E22] flex items-center justify-center shrink-0 shadow-sm overflow-hidden">
                     <img
                       alt="Experiment"
@@ -940,8 +1090,8 @@ export default function EditingFundamentalsPage() {
                         color: "transparent",
                       }}
                       sizes="100vw"
-                      srcSet="/main/1/showcase/experiment.png"
-                      src="/main/1/showcase/experiment.png"
+                      srcSet="/main/2/showcase/experiment.png"
+                      src="/main/2/showcase/experiment.png"
                     />
                   </div>
                   <div className="space-y-1 md:space-y-0.5 min-w-0">
@@ -953,7 +1103,7 @@ export default function EditingFundamentalsPage() {
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-col md:flex-row items-center gap-3 md:gap-3.5 p-4 md:p-1 rounded-2xl md:rounded-none bg-[#F4F5F7] md:bg-transparent text-center md:text-left">
+                <div className="pillar-card opacity-0 flex flex-col md:flex-row items-center gap-3 md:gap-3.5 p-4 md:p-1 rounded-2xl md:rounded-none bg-[#F4F5F7] md:bg-transparent text-center md:text-left">
                   <div className="relative w-14 h-14 md:w-15 md:h-15 rounded-2xl bg-[#1D1E22] flex items-center justify-center shrink-0 shadow-sm overflow-hidden">
                     <img
                       alt="Stay consistent"
@@ -972,8 +1122,8 @@ export default function EditingFundamentalsPage() {
                         color: "transparent",
                       }}
                       sizes="100vw"
-                      srcSet="/main/1/showcase/consistent.png"
-                      src="/main/1/showcase/consistent.png"
+                      srcSet="/main/2/showcase/consistent.png"
+                      src="/main/2/showcase/consistent.png"
                     />
                   </div>
                   <div className="space-y-1 md:space-y-0.5 min-w-0">
@@ -992,8 +1142,8 @@ export default function EditingFundamentalsPage() {
                 You'll create simple <br className="sm:hidden" /> edits like
                 this!
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-85 sm:max-w-none mx-auto">
-                <div className="flex flex-col items-center group cursor-pointer bg-[#F4F5F7] sm:bg-transparent rounded-3xl p-2.5 sm:p-0">
+              <div className="showcase-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-85 sm:max-w-none mx-auto">
+                <div className="showcase-card opacity-0 flex flex-col items-center group cursor-pointer bg-[#F4F5F7] sm:bg-transparent rounded-3xl p-2.5 sm:p-0">
                   <div className="relative w-full aspect-[3/3.8] sm:aspect-9/15 rounded-2xl sm:rounded-3xl overflow-hidden bg-neutral-900 shadow-md border border-neutral-200/40 transition-transform duration-300 group-hover:-translate-y-1.5">
                     <img
                       alt="Travel edit"
@@ -1012,8 +1162,8 @@ export default function EditingFundamentalsPage() {
                         color: "transparent",
                       }}
                       sizes="(max-width: 640px) 100vw, 25vw"
-                      srcSet="/main/1/showcase/Travel-edit.png"
-                      src="/main/1/showcase/Travel-edit.png"
+                      srcSet="/main/2/showcase/Travel-edit.png"
+                      src="/main/2/showcase/Travel-edit.png"
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/40 backdrop-blur-xs flex items-center justify-center text-white shadow-xl transition-transform duration-300 group-hover:scale-110">
@@ -1039,7 +1189,7 @@ export default function EditingFundamentalsPage() {
                     Travel edit
                   </span>
                 </div>
-                <div className="flex flex-col items-center group cursor-pointer bg-[#F4F5F7] sm:bg-transparent rounded-3xl p-2.5 sm:p-0">
+                <div className="showcase-card opacity-0 flex flex-col items-center group cursor-pointer bg-[#F4F5F7] sm:bg-transparent rounded-3xl p-2.5 sm:p-0">
                   <div className="relative w-full aspect-[3/3.8] sm:aspect-9/15 rounded-2xl sm:rounded-3xl overflow-hidden bg-neutral-900 shadow-md border border-neutral-200/40 transition-transform duration-300 group-hover:-translate-y-1.5">
                     <img
                       alt="Lifestyle edit"
@@ -1058,8 +1208,8 @@ export default function EditingFundamentalsPage() {
                         color: "transparent",
                       }}
                       sizes="(max-width: 640px) 100vw, 25vw"
-                      srcSet="/main/1/showcase/lifestyle-edit.png"
-                      src="/main/1/showcase/lifestyle-edit.png"
+                      srcSet="/main/2/showcase/lifestyle-edit.png"
+                      src="/main/2/showcase/lifestyle-edit.png"
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/40 backdrop-blur-xs flex items-center justify-center text-white shadow-xl transition-transform duration-300 group-hover:scale-110">
@@ -1085,7 +1235,7 @@ export default function EditingFundamentalsPage() {
                     Lifestyle edit
                   </span>
                 </div>
-                <div className="flex flex-col items-center group cursor-pointer bg-[#F4F5F7] sm:bg-transparent rounded-3xl p-2.5 sm:p-0">
+                <div className="showcase-card opacity-0 flex flex-col items-center group cursor-pointer bg-[#F4F5F7] sm:bg-transparent rounded-3xl p-2.5 sm:p-0">
                   <div className="relative w-full aspect-[3/3.8] sm:aspect-9/15 rounded-2xl sm:rounded-3xl overflow-hidden bg-neutral-900 shadow-md border border-neutral-200/40 transition-transform duration-300 group-hover:-translate-y-1.5">
                     <img
                       alt="Product edit"
@@ -1104,8 +1254,8 @@ export default function EditingFundamentalsPage() {
                         color: "transparent",
                       }}
                       sizes="(max-width: 640px) 100vw, 25vw"
-                      srcSet="/main/1/showcase/product-edit.png"
-                      src="/main/1/showcase/product-edit.png"
+                      srcSet="/main/2/showcase/product-edit.png"
+                      src="/main/2/showcase/product-edit.png"
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/40 backdrop-blur-xs flex items-center justify-center text-white shadow-xl transition-transform duration-300 group-hover:scale-110">
@@ -1131,7 +1281,7 @@ export default function EditingFundamentalsPage() {
                     Product edit
                   </span>
                 </div>
-                <div className="flex flex-col items-center group cursor-pointer bg-[#F4F5F7] sm:bg-transparent rounded-3xl p-2.5 sm:p-0">
+                <div className="showcase-card opacity-0 flex flex-col items-center group cursor-pointer bg-[#F4F5F7] sm:bg-transparent rounded-3xl p-2.5 sm:p-0">
                   <div className="relative w-full aspect-[3/3.8] sm:aspect-9/15 rounded-2xl sm:rounded-3xl overflow-hidden bg-neutral-900 shadow-md border border-neutral-200/40 transition-transform duration-300 group-hover:-translate-y-1.5">
                     <img
                       alt="Vlog edit"
@@ -1150,8 +1300,8 @@ export default function EditingFundamentalsPage() {
                         color: "transparent",
                       }}
                       sizes="(max-width: 640px) 100vw, 25vw"
-                      srcSet="/main/1/showcase/vlod-edit.png"
-                      src="/main/1/showcase/vlod-edit.png"
+                      srcSet="/main/2/showcase/vlod-edit.png"
+                      src="/main/2/showcase/vlod-edit.png"
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/40 backdrop-blur-xs flex items-center justify-center text-white shadow-xl transition-transform duration-300 group-hover:scale-110">
@@ -1184,19 +1334,19 @@ export default function EditingFundamentalsPage() {
         <section className="w-full py-16 sm:py-18 bg-transparent text-neutral-900 overflow-hidden select-none">
           <div className="comparison-parallax-container max-w-340 2xl:max-w-408 mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <div className="text-center space-y-3 sm:space-y-5">
-              <div className="inline-flex px-4 py-1.5 rounded-full border border-[#FF7A59] bg-white text-xs sm:text-sm font-semibold text-[#FF7A59]">
+              <div className="comparison-header opacity-0 inline-flex px-4 py-1.5 rounded-full border border-[#FF7A59] bg-white text-xs sm:text-sm font-semibold text-[#FF7A59]">
                 Why Choose Our Course?
               </div>
-              <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#191C1D] max-w-4xl mx-auto leading-[1.12]">
+              <h2 className="comparison-header opacity-0 text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#191C1D] max-w-4xl mx-auto leading-[1.12]">
                 See the Difference. <br className="sm:hidden" /> Choose What's
                 Better <br className="sm:hidden" /> for You.
               </h2>
-              <p className="text-[#717680] text-xs sm:text-sm md:text-base max-w-xs sm:max-w-xl mx-auto leading-relaxed">
+              <p className="comparison-header opacity-0 text-[#717680] text-xs sm:text-sm md:text-base max-w-xs sm:max-w-xl mx-auto leading-relaxed">
                 Compare the learning experience and discover why our course is
                 more practical, supportive, and results-focused.
               </p>
             </div>
-            <div className="w-full max-w-6xl mx-auto rounded-[20px] sm:rounded-[15px] border border-[#FF7A59]/60 sm:border-[#FF5A1F] shadow-lg bg-white overflow-hidden">
+            <div className="comparison-table-container w-full max-w-6xl mx-auto rounded-[20px] sm:rounded-[15px] border border-[#FF7A59]/60 sm:border-[#FF5A1F] shadow-lg bg-white overflow-hidden">
               <div className="grid grid-cols-3 border-b border-[#FF7A59]/30">
                 <div className="p-2.5 sm:p-6 text-xs sm:text-2xl font-bold text-[#191C1D] flex items-center justify-center sm:justify-start text-center sm:text-left leading-tight sm:pl-8">
                   Key Features
@@ -1209,7 +1359,7 @@ export default function EditingFundamentalsPage() {
                 </div>
               </div>
               <div className="divide-y divide-neutral-100 relative z-20">
-                <div className="grid grid-cols-3 items-stretch min-h-24 sm:min-h-24">
+                <div className="comparison-row opacity-0 grid grid-cols-3 items-stretch min-h-24 sm:min-h-24">
                   <div className="p-2 sm:p-6 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-4 bg-white text-center sm:text-left sm:pl-8">
                     <div className="hidden sm:flex w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[#FFF2EE] items-center justify-center shrink-0 border border-[#FF5B1F]/20">
                       <svg
@@ -1280,7 +1430,7 @@ export default function EditingFundamentalsPage() {
                     </span>
                   </div>
                 </div>
-                <div className="grid grid-cols-3 items-stretch min-h-24 sm:min-h-24">
+                <div className="comparison-row opacity-0 grid grid-cols-3 items-stretch min-h-24 sm:min-h-24">
                   <div className="p-2 sm:p-6 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-4 bg-white text-center sm:text-left sm:pl-8">
                     <div className="hidden sm:flex w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[#FFF2EE] items-center justify-center shrink-0 border border-[#FF5B1F]/20">
                       <svg
@@ -1353,7 +1503,7 @@ export default function EditingFundamentalsPage() {
                     </span>
                   </div>
                 </div>
-                <div className="grid grid-cols-3 items-stretch min-h-24 sm:min-h-24">
+                <div className="comparison-row opacity-0 grid grid-cols-3 items-stretch min-h-24 sm:min-h-24">
                   <div className="p-2 sm:p-6 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-4 bg-white text-center sm:text-left sm:pl-8">
                     <div className="hidden sm:flex w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[#FFF2EE] items-center justify-center shrink-0 border border-[#FF5B1F]/20">
                       <svg
@@ -1424,7 +1574,7 @@ export default function EditingFundamentalsPage() {
                     </span>
                   </div>
                 </div>
-                <div className="grid grid-cols-3 items-stretch min-h-24 sm:min-h-24">
+                <div className="comparison-row opacity-0 grid grid-cols-3 items-stretch min-h-24 sm:min-h-24">
                   <div className="p-2 sm:p-6 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-4 bg-white text-center sm:text-left sm:pl-8">
                     <div className="hidden sm:flex w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[#FFF2EE] items-center justify-center shrink-0 border border-[#FF5B1F]/20">
                       <svg
@@ -1538,9 +1688,9 @@ export default function EditingFundamentalsPage() {
                 remaining core pillars of cinematic storytelling.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
+            <div className="module-grid grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
               <Link
-                className="group relative rounded-2xl sm:rounded-3xl overflow-hidden flex flex-row items-stretch border transition-all duration-300 shadow-md bg-[#FFF6F3] border-[#FF5B1F] shadow-orange-500/10 hover:shadow-orange-500/20"
+                className="module-card opacity-0 group relative rounded-2xl sm:rounded-3xl overflow-hidden flex flex-row items-stretch border transition-all duration-300 shadow-md bg-[#FFF6F3] border-[#FF5B1F] shadow-orange-500/10 hover:shadow-orange-500/20"
                 to="/color-grading"
               >
                 <div className="w-[60%] p-4 sm:p-7 flex flex-col justify-between space-y-2.5 sm:space-y-4">
@@ -1601,7 +1751,7 @@ export default function EditingFundamentalsPage() {
                 </div>
               </Link>
               <Link
-                className="group relative rounded-2xl sm:rounded-3xl overflow-hidden flex flex-row items-stretch border transition-all duration-300 shadow-md bg-white border-neutral-200/80 hover:border-neutral-300 shadow-neutral-200/50"
+                className="module-card opacity-0 group relative rounded-2xl sm:rounded-3xl overflow-hidden flex flex-row items-stretch border transition-all duration-300 shadow-md bg-white border-neutral-200/80 hover:border-neutral-300 shadow-neutral-200/50"
                 to="/typography"
               >
                 <div className="w-[60%] p-4 sm:p-7 flex flex-col justify-between space-y-2.5 sm:space-y-4">
