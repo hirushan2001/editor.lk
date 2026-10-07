@@ -11,47 +11,47 @@ export const MODULE_PAGES_DATA = {
     learnHighlight: 'Editing fundamentals',
     learnSubtitle: 'Master the Core Skills and Build a Strong Foundation for Professional Editing.',
     heroCovers: [
-      { title: 'Take Yours Editorial Edit', src: '/main/2/hero/03d06ee7f7ebf4413bc6fc5b8c6aaf6e.jpg.jpeg' },
-      { title: 'Creative Visual Color Edit', src: '/main/2/hero/176c1f1e4ead917c6f7c73bdc99527fb.jpg.jpeg' },
-      { title: 'High Speed Motion Blur', src: '/main/2/hero/ae1f104c5bfee9025a9035f3a9d49447.jpg.jpeg' },
-      { title: 'Surreal Graphic Portrait', src: '/main/2/hero/49cfcca5b7d42f4041e4d8a394f4b8c5.jpg.jpeg' },
-      { title: 'Cinematic Lighting & Color', src: '/main/2/hero/282f9ac0a1f1f98969da9a7613156af7.jpg.jpeg' },
-      { title: 'Build Your Future Neon Edit', src: '/main/2/hero/434d852c4f47767d82a96a99e501c917.jpg.jpeg' }
+      { title: 'Editing Fundamentals Workspace', src: '/main/1/hero/web/Funde-bg.png' },
+      { title: 'Master CapCut Controls', src: '/main/1/what-u-learn/master-of-funde.png' },
+      { title: 'Speed Ramping & Motion', src: '/main/1/real-projects/motion.png' },
+      { title: 'Cut & Trim Techniques', src: '/main/1/footer/basic.png' },
+      { title: 'Camera & Frame Pacing', src: '/main/1/footer/camera.png' },
+      { title: 'Keyframe Animations', src: '/main/1/footer/keyframe2.png' }
     ],
     cards: [
       {
         id: 'basics',
         title: 'Understand the basic',
         desc: 'Learn what video editing is, key concepts, and how digital video works.',
-        image: '/main/2/what-you-will-learn/understand-basics.png',
+        image: '/main/1/what-u-learn/master-of-funde.png',
         initial: 'B'
       },
       {
         id: 'interface',
         title: 'Capcut interface',
         desc: 'Explore the workspace, panels, and customize it for your workflow.',
-        image: '/main/2/what-you-will-learn/capcut.png',
+        image: '/main/1/hero/web/Funde-bg.png',
         initial: 'I'
       },
       {
         id: 'import',
         title: 'Import & Organize',
         desc: 'Import media, organize bins, and keep your timeline structured.',
-        image: '/main/2/what-you-will-learn/import-and-organize.png',
+        image: '/main/1/footer/basic.png',
         initial: 'O'
       },
       {
         id: 'timeline',
         title: 'Timeline basic',
         desc: 'Timeline controls, tracks, playhead, zooming, and track management.',
-        image: '/main/1/what-u-learn/master-of-funde.png',
+        image: '/main/1/footer/speed pannel.png',
         initial: 'T'
       },
       {
         id: 'tools',
         title: 'Basic editing tools',
         desc: 'Blade tool, ripple edit, razor cuts, J-cuts & L-cuts.',
-        image: '/main/2/side/step-by-step.png',
+        image: '/main/1/footer/realtime.png',
         initial: 'E'
       }
     ],
@@ -64,7 +64,7 @@ export const MODULE_PAGES_DATA = {
       { name: 'Stay consistent', desc: 'Refine workflow habits daily to build commercial speed.' }
     ],
     demoTitle: "You'll create simple edits like this!",
-    demoVideoSrc: '/main/2/side/step-by-step.png',
+    demoVideoSrc: '/main/1/hero/web/Funde-bg.png',
     otherModules: [
       { name: 'Color Grading', slug: '/color-grading', image: '/main/1/what-u-learn/master-of-color.png' },
       { name: 'Typography', slug: '/typography', image: '/main/1/what-u-learn/typo.png' }
@@ -83,10 +83,10 @@ export const MODULE_PAGES_DATA = {
     learnHighlight: 'Color grading',
     learnSubtitle: 'Master Color Correction, Hue Control & Mood Creation Step by Step.',
     heroCovers: [
-      { title: 'Vibrant Color Grading', src: '/main/2/hero/e14557eb7cb892a7cafd42165de721fb.jpg.jpeg' },
-      { title: 'Dynamic Perspective 3D', src: '/main/2/hero/f69490e74d73c09216092bfcf7b1897e.jpg.jpeg' },
-      { title: 'Creative Composite Art', src: '/main/2/hero/fdccef552fe4a305d5aa734bdf3d1b27.jpg.jpeg' },
-      { title: 'Cinematic Lighting & Color', src: '/main/2/hero/282f9ac0a1f1f98969da9a7613156af7.jpg.jpeg' }
+      { title: 'Color Grading Transformation', src: '/main/1/hero/web/color-grad-new.png' },
+      { title: 'Master of Color', src: '/main/1/what-u-learn/master-of-color.png' },
+      { title: 'Cinematic Mood & Tone', src: '/main/1/footer/color.png' },
+      { title: 'Before & After Grading', src: '/main/1/real-projects/before-after.png' }
     ],
     cards: [
       {
@@ -100,7 +100,7 @@ export const MODULE_PAGES_DATA = {
         id: 'mood',
         title: 'Create mood & Style',
         desc: 'Teal & Orange, moody film looks, cinematic warmth, and dark aesthetic tones.',
-        image: '/main/2/hero/e14557eb7cb892a7cafd42165de721fb.jpg.jpeg',
+        image: '/main/1/hero/web/color-grad-new.png',
         initial: 'M'
       },
       {
@@ -134,7 +134,7 @@ export const MODULE_PAGES_DATA = {
     heroCovers: [
       { title: 'Sound Design Dynamics', src: '/main/1/hero/web/music-bg.png' },
       { title: 'Immersive Audio Beats', src: '/main/1/what-u-learn/power-of-sound.png' },
-      { title: 'Action Sound Layering', src: '/main/2/hero/ae1f104c5bfee9025a9035f3a9d49447.jpg.jpeg' }
+      { title: 'Action Sound Layering', src: '/main/1/footer/mucis.png' }
     ],
     cards: [
       {
@@ -155,14 +155,14 @@ export const MODULE_PAGES_DATA = {
         id: 'balance',
         title: 'Volume & Audio Balance',
         desc: 'Balance music, voiceover, and SFX for crisp, studio-clean audio.',
-        image: '/main/2/hero/03d06ee7f7ebf4413bc6fc5b8c6aaf6e.jpg.jpeg',
+        image: '/main/1/footer/mucis.png',
         initial: 'V'
       },
       {
         id: 'feel',
         title: 'Change the Feel of Your Video',
         desc: 'Use music and sound to create emotion, rhythm, mood and strong impact.',
-        image: '/main/2/hero/282f9ac0a1f1f98969da9a7613156af7.jpg.jpeg',
+        image: '/main/1/real-projects/effect.png',
         initial: 'F'
       },
       {
@@ -212,7 +212,7 @@ export const MODULE_PAGES_DATA = {
     heroCovers: [
       { title: 'Typography Master Layout', src: '/main/1/hero/web/typo-bg.png' },
       { title: 'Viral Pop Subtitles', src: '/main/1/what-u-learn/typo.png' },
-      { title: 'Neon Glow Text Art', src: '/main/2/hero/434d852c4f47767d82a96a99e501c917.jpg.jpeg' }
+      { title: 'Neon Glow Text Art', src: '/main/1/real-projects/motion.png' }
     ],
     cards: [
       {
@@ -233,21 +233,21 @@ export const MODULE_PAGES_DATA = {
         id: 'styling',
         title: 'Text Styling & Customization',
         desc: 'Work with color, size, stroke, glow shadow, backgrounds, and masks.',
-        image: '/main/2/hero/434d852c4f47767d82a96a99e501c917.jpg.jpeg',
+        image: '/main/1/footer/effect.png',
         initial: 'S'
       },
       {
         id: 'hierarchy',
         title: 'Text Hierarchy & Layout',
         desc: 'Organize text clearly using title hierarchy, leading, and tracking.',
-        image: '/main/2/hero/49cfcca5b7d42f4041e4d8a394f4b8c5.jpg.jpeg',
+        image: '/main/1/real-projects/motion.png',
         initial: 'H'
       },
       {
         id: 'animation',
         title: 'Text Animation in CapCut',
         desc: 'Animate text using keyframes, kinetic presets, and pop transitions.',
-        image: '/main/1/real-projects/motion.png',
+        image: '/main/1/real-projects/main.png',
         initial: 'A'
       }
     ],

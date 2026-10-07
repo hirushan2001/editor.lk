@@ -188,17 +188,6 @@ export default function HeroSection() {
                       <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </a>
-
-                  <Link
-                    to={activeMod.slug}
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-orange-500/20 hover:bg-orange-500/30 text-orange-400 border border-orange-500/40 font-bold text-sm sm:text-base transition-all duration-300 cursor-pointer select-none px-6 py-3 hover:scale-105"
-                  >
-                    <span>View {activeMod.name} Page</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" />
-                    </svg>
-                  </Link>
-
                   <a
                     className="inline-flex items-center justify-center gap-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-semibold text-sm sm:text-base transition-all duration-300 cursor-pointer select-none px-5 py-3 hover:scale-105"
                     href="#curriculum"

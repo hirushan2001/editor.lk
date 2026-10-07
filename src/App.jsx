@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -13,11 +13,29 @@ import TestimonialsSection from './components/TestimonialsSection';
 import FaqSection from './components/FaqSection';
 import CurriculumMontage from './components/CurriculumMontage';
 import FooterSection from './components/FooterSection';
-import ModuleDetailPage from './components/ModuleDetailPage';
+
+import EditingFundamentalsPage from './pages/EditingFundamentalsPage';
+import ColorGradingPage from './pages/ColorGradingPage';
+import MusicAndSoundPage from './pages/MusicAndSoundPage';
+import TypographyPage from './pages/TypographyPage';
 
 gsap.registerPlugin(ScrollTrigger);
 
-function HomePage() {
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [pathname]);
+
+  return null;
+}
+
+function PageLayout({ children }) {
   useEffect(() => {
     // Initialize Lenis smooth scroll engine
     const lenis = new Lenis({
@@ -51,7 +69,7 @@ function HomePage() {
 
     const observerOptions = {
       threshold: 0.05,
-      rootMargin: '0px 0px -40px 0px'
+      rootMargin: '0px 0px -40px 0px',
     };
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
@@ -67,36 +85,13 @@ function HomePage() {
 
   return (
     <div className="min-h-full flex flex-col bg-neutral-950 text-white font-sans antialiased">
-      
       {/* Header */}
       <Header />
 
       {/* Main Layout Container */}
       <div className="relative min-h-screen bg-neutral-950 font-sans text-white">
-        
-        {/* Upper Hero & Learn Block */}
-        <div className="relative z-10 w-full bg-neutral-950">
-          {/* Child 1: Sticky Hero Section */}
-          <HeroSection />
-
-          {/* Child 2: What You'll Learn & Real Projects (White rounded card container) */}
-          <div className="transform-gpu relative z-30 w-full bg-white text-neutral-900 force-rounded-t force-rounded-b rounded-t-[40px] sm:rounded-t-[56px] rounded-b-[40px] sm:rounded-b-[56px] shadow-[0_-10px_25px_rgba(0,0,0,0.5)] sm:shadow-[0_-25px_60px_rgba(0,0,0,0.8),0_25px_60px_rgba(0,0,0,0.4)] overflow-hidden">
-            <WhatYouLearn />
-            <RealProjectsSection />
-          </div>
-        </div>
-
-        {/* Child 3: Pricing & Offer Section */}
-        <div id="pricing" className="relative z-10 w-full bg-neutral-950 pt-10 pb-8">
-          <PricingSection />
-        </div>
-
-        {/* Child 4: Comparison, Testimonials & FAQ (White rounded card container) */}
-        <div className="transform-gpu relative z-30 w-full bg-white text-neutral-900 force-rounded-t force-rounded-b rounded-t-[40px] sm:rounded-t-[56px] rounded-b-[40px] sm:rounded-b-[56px] shadow-[0_-10px_25px_rgba(0,0,0,0.5)] sm:shadow-[0_-25px_60px_rgba(0,0,0,0.8),0_25px_60px_rgba(0,0,0,0.4)] overflow-hidden">
-          <ComparisonSection />
-          <TestimonialsSection />
-          <FaqSection />
-        </div>
+        {/* Route Page Content */}
+        {children}
 
         {/* Child 5: All You'll Learn Montage Grid */}
         <div className="relative z-20 w-full bg-[#08080A]">
@@ -105,24 +100,54 @@ function HomePage() {
 
         {/* Child 6: Footer & Signature Curtain */}
         <FooterSection />
+      </div>
+    </div>
+  );
+}
 
+function HomeContent() {
+  return (
+    <>
+      {/* Upper Hero & Learn Block */}
+      <div className="relative z-10 w-full bg-neutral-950">
+        {/* Child 1: Sticky Hero Section */}
+        <HeroSection />
+
+        {/* Child 2: What You'll Learn & Real Projects (White rounded card container) */}
+        <div className="transform-gpu relative z-30 w-full bg-white text-neutral-900 force-rounded-t force-rounded-b rounded-t-[40px] sm:rounded-t-[56px] rounded-b-[40px] sm:rounded-b-[56px] shadow-[0_-10px_25px_rgba(0,0,0,0.5)] sm:shadow-[0_-25px_60px_rgba(0,0,0,0.8),0_25px_60px_rgba(0,0,0,0.4)] overflow-hidden">
+          <WhatYouLearn />
+          <RealProjectsSection />
+        </div>
       </div>
 
-    </div>
+      {/* Child 3: Pricing & Offer Section */}
+      <div id="pricing" className="relative z-10 w-full bg-neutral-950 pt-10 pb-8">
+        <PricingSection />
+      </div>
+
+      {/* Child 4: Comparison, Testimonials & FAQ (White rounded card container) */}
+      <div className="transform-gpu relative z-30 w-full bg-white text-neutral-900 force-rounded-t force-rounded-b rounded-t-[40px] sm:rounded-t-[56px] rounded-b-[40px] sm:rounded-b-[56px] shadow-[0_-10px_25px_rgba(0,0,0,0.5)] sm:shadow-[0_-25px_60px_rgba(0,0,0,0.8),0_25px_60px_rgba(0,0,0,0.4)] overflow-hidden">
+        <ComparisonSection />
+        <TestimonialsSection />
+        <FaqSection />
+      </div>
+    </>
   );
 }
 
 export default function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/editing-fundamentals" element={<ModuleDetailPage />} />
-        <Route path="/color-grading" element={<ModuleDetailPage />} />
-        <Route path="/music-and-sound" element={<ModuleDetailPage />} />
-        <Route path="/typography" element={<ModuleDetailPage />} />
-        <Route path="/module/:moduleId" element={<ModuleDetailPage />} />
-      </Routes>
+      <ScrollToTop />
+      <PageLayout>
+        <Routes>
+          <Route path="/" element={<HomeContent />} />
+          <Route path="/editing-fundamentals" element={<EditingFundamentalsPage />} />
+          <Route path="/color-grading" element={<ColorGradingPage />} />
+          <Route path="/music-and-sound" element={<MusicAndSoundPage />} />
+          <Route path="/typography" element={<TypographyPage />} />
+        </Routes>
+      </PageLayout>
     </Router>
   );
 }
