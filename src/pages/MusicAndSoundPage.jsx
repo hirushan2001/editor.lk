@@ -26,7 +26,7 @@ export default function MusicAndSoundPage() {
 
   return (
     <div ref={containerRef} className="relative min-h-screen bg-neutral-950 font-sans text-white select-none">
-      <div id="home" className="relative w-full z-30">
+      <div id="home" className="sticky top-0 z-10 w-full">
         <section
           id="home"
           className="relative w-full h-[650px] lg:h-[820px] bg-black text-white flex flex-col items-center justify-between select-none overflow-visible pb-0"
@@ -136,7 +136,7 @@ export default function MusicAndSoundPage() {
           </div>
         </section>
       </div>
-      <div className="relative z-20 w-full bg-white text-neutral-900 rounded-t-4xl rounded-b-none sm:rounded-b-4xl pb-4 sm:pb-8">
+      <div className="transform-gpu relative z-30 w-full bg-white text-neutral-900 force-rounded-t force-rounded-b rounded-t-[40px] sm:rounded-t-[56px] rounded-b-[40px] sm:rounded-b-[56px] shadow-[0_-10px_25px_rgba(0,0,0,0.5)] sm:shadow-[0_-25px_60px_rgba(0,0,0,0.8),0_25px_60px_rgba(0,0,0,0.4)] overflow-hidden pb-4 sm:pb-8">
         <div id="features">
           <section className="relative w-full bg-white text-neutral-900 pt-16 sm:pt-24 pb-7 sm:pb-14 px-4 sm:px-6 lg:px-8 select-none overflow-visible lg:overflow-hidden">
             <div className="max-w-7xl mx-auto flex flex-col items-center mt-2">

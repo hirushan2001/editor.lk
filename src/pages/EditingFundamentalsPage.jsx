@@ -366,7 +366,7 @@ export default function EditingFundamentalsPage() {
           </div>
         </section>
       </div>
-      <div className="relative z-20 w-full bg-white text-neutral-900 rounded-t-4xl rounded-b-none sm:rounded-b-4xl overflow-hidden pb-4 sm:pb-8">
+      <div className="transform-gpu relative z-30 w-full bg-white text-neutral-900 force-rounded-t force-rounded-b rounded-t-[40px] sm:rounded-t-[56px] rounded-b-[40px] sm:rounded-b-[56px] shadow-[0_-10px_25px_rgba(0,0,0,0.5)] sm:shadow-[0_-25px_60px_rgba(0,0,0,0.8),0_25px_60px_rgba(0,0,0,0.4)] overflow-hidden pb-4 sm:pb-8">
         <div id="features">
           <section className="relative w-full bg-white text-neutral-900 pt-0 sm:pt-20 pb-16 sm:pb-24 select-none overflow-visible lg:overflow-hidden">
             <div className="block sm:hidden w-full pt-5 mb-8">

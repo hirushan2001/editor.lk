@@ -239,7 +239,7 @@ export default function TypographyPage() {
           </div>
         </section>
       </div>
-      <div className="relative z-20 w-full bg-white text-neutral-900 rounded-t-4xl rounded-b-none sm:rounded-b-4xl overflow-hidden pb-4 sm:pb-8">
+      <div className="transform-gpu relative z-30 w-full bg-white text-neutral-900 force-rounded-t force-rounded-b rounded-t-[40px] sm:rounded-t-[56px] rounded-b-[40px] sm:rounded-b-[56px] shadow-[0_-10px_25px_rgba(0,0,0,0.5)] sm:shadow-[0_-25px_60px_rgba(0,0,0,0.8),0_25px_60px_rgba(0,0,0,0.4)] overflow-hidden pb-4 sm:pb-8">
         <div id="features">
           <section className="relative w-full bg-white text-neutral-900 pt-12 sm:pt-20 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8 select-none overflow-visible lg:overflow-hidden">
             <div className="max-w-7xl mx-auto flex flex-col items-center mt-6 md:mt-0">

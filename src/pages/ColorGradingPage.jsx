@@ -310,7 +310,7 @@ export default function ColorGradingPage() {
           </div>
         </section>
       </div>
-      <div className="relative z-20 w-full bg-white text-neutral-900 rounded-t-4xl rounded-b-none sm:rounded-b-4xl pb-4 sm:pb-8">
+      <div className="transform-gpu relative z-30 w-full bg-white text-neutral-900 force-rounded-t force-rounded-b rounded-t-[40px] sm:rounded-t-[56px] rounded-b-[40px] sm:rounded-b-[56px] shadow-[0_-10px_25px_rgba(0,0,0,0.5)] sm:shadow-[0_-25px_60px_rgba(0,0,0,0.8),0_25px_60px_rgba(0,0,0,0.4)] overflow-hidden pb-4 sm:pb-8">
         <div id="features">
           <section className="relative w-full lg:min-h-screen pt-6 sm:pt-24 pb-8 sm:pb-24 px-4 sm:px-6 lg:px-8 bg-white text-neutral-900 rounded-t-4xl overflow-visible lg:overflow-hidden select-none">
             <div className="max-w-360 mx-auto flex flex-col items-center">
